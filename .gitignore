@@ -1,2 +1,4 @@
 /bin/composer
+/nixops/*.nixops-*
+/nixops/dev.nixops
 /vendor/

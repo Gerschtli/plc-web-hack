@@ -1,0 +1,17 @@
+{
+    "name": "unmr/plc-web-hack",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tobias Happ",
+            "email": "tobias.happ@gmx.de"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {
+        "hhvm": ">=3.23",
+        "facebook/xhp-lib": "@stable",
+        "hhvm/hhvm-autoload": "@stable"
+    }
+}

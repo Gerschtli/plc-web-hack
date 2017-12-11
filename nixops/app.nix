@@ -67,6 +67,10 @@ rec {
         };
       };
 
+      system.activationScripts.mysql-socket = ''
+        ${pkgs.coreutils}/bin/ln -snf /run/mysqld/mysqld.sock /tmp/mysql.sock
+      '';
+
       systemd.services.hhvm-server = {
         description = "HHVM Server";
         after = [ "network.target" ];
@@ -86,6 +90,7 @@ rec {
           '';
           User = "nginx";
           Restart = "always";
+          KillSignal = "SIGKILL";
         };
       };
 

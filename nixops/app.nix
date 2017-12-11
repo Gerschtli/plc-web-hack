@@ -4,12 +4,13 @@ rec {
   description = "PLC Web Hack";
 
   plc-hack =
-    { pkgs, appDir ? null }:
+    { pkgs, appDir ? null, dev ? false }:
     let
+      app = import ../. { noDev = !dev; };
       public = (
         if (appDir != null)
         then appDir
-        else (import ../.)
+        else app
       ) + "/public";
     in
     {

@@ -45,6 +45,6 @@ in
         virtualisation.virtualbox.guest.enable = true;
       }
 
-      (app.plc-hack { inherit pkgs appDir; })
+      (app.plc-hack { inherit pkgs appDir; dev = true; })
     ];
 }

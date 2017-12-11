@@ -2,27 +2,28 @@
 
 namespace PLC;
 
-use PLC\Controller\Index;
-use IndexView;
+use PLC\Controller\Controllable;
+use PLC\Exception\NotFound;
 
 class Router
 {
     public static async function route(string $method, string $uri): Awaitable<void>
     {
-        if ($uri === '/') {
-            await self::_getIndexController()->render();
-        } else {
-            echo 'error';
+        await self::getControllable($method, $uri)->render();
+    }
+
+    private static function getControllable(string $method, string $uri): Controllable
+    {
+        $dic = new DIC();
+
+        try {
+            if ($uri === '/') {
+                return $dic->getIndexController();
+            } else {
+                throw new NotFound();
+            }
+        } catch (NotFound $exception) {
+            return $dic->getNotFoundController();
         }
-    }
-
-    private static function _getIndexController(): Index
-    {
-        return new Index(self::_getIndexView());
-    }
-
-    private static function _getIndexView(): IndexView
-    {
-        return new IndexView();
     }
 }

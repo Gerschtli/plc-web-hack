@@ -1,0 +1,4 @@
+[submodule "composer2nix"]
+    path = composer2nix
+    url = git@github.com:Gerschtli/composer2nix.git
+    branch = hhvm

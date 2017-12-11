@@ -5,7 +5,7 @@ class IndexView implements Viewable
     public function render(): void
     {
         echo
-            <plc:layout>
+            <plc:layout title="Startseite">
                 <div>
                     <strong>hallo</strong>
                 </div>

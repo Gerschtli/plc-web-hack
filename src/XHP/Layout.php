@@ -2,13 +2,15 @@
 
 class :plc:layout extends :x:element {
     children (:div)+;
+    attribute :title;
 
     protected function render(): \XHPRoot {
         return
             <x:doctype>
                 <html>
                     <head>
-                        <title>Titel</title>
+                        <title>{$this->:title} - Blog</title>
+                        <link rel="stylesheet" href="/css/main.css" />
                     </head>
                     <body>
                         {$this->getChildren()}

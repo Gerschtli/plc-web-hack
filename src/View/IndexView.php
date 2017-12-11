@@ -1,6 +1,6 @@
 <?hh // strict
 
-class IndexView implements Viewable
+class IndexView extends View implements Viewable
 {
     public function render(): void
     {

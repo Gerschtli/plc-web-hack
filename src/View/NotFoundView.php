@@ -1,6 +1,6 @@
 <?hh // strict
 
-class NotFoundView implements Viewable
+class NotFoundView extends View implements Viewable
 {
     public function render(): void
     {

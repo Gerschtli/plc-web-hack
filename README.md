@@ -22,7 +22,7 @@ $ nixops/manage dev start
 $ nixops/manage dev stop
 ```
 
-Note: You need to install VirtualBox and add an entry in `/etc/hosts` to `plc.hack`.
+Note: You need to install VirtualBox.
 
 ## Deployment
 

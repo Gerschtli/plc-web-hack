@@ -27,11 +27,7 @@ in
         };
 
         environment = {
-          etc = {
-            "hh.conf".text = "enable_on_nfs = true";
-
-            "hhvm/server.ini".text = "hhvm.jit = 0";
-          };
+          etc."hh.conf".text = "enable_on_nfs = true";
 
           systemPackages = [ pkgs.vim ];
         };

@@ -61,6 +61,7 @@ rec {
             };
             "~* \.(png|gif|jpg|jpeg|ico|css|js|woff|ttf|otf|woff2|eot)$" = {
               root = public;
+              tryFiles = "$uri /";
             };
           };
         };

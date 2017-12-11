@@ -1,7 +1,9 @@
 with import <nixpkgs> { };
 
-lib.overrideDerivation (import ./.) (attrs: {
-  buildInputs = attrs.buildInputs ++ [
+stdenv.mkDerivation {
+  name = "plc-web-hack";
+
+  buildInputs = [
     (hhvm.overrideDerivation (old: rec {
       name = "hhvm-${version}";
       version = "3.23";
@@ -13,5 +15,6 @@ lib.overrideDerivation (import ./.) (attrs: {
         fetchSubmodules = true;
       };
     }))
+    php
   ];
-})
+}

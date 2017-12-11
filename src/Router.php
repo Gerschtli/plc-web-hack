@@ -9,16 +9,17 @@ class Router
 {
     public static async function route(string $method, string $uri): Awaitable<void>
     {
-        await self::getControllable($method, $uri)->render();
+        $controllable = await self::getControllable($method, $uri);
+        await $controllable->render();
     }
 
-    private static function getControllable(string $method, string $uri): Controllable
+    private static async function getControllable(string $method, string $uri): Awaitable<Controllable>
     {
         $dic = new DIC();
 
         try {
             if ($uri === '/') {
-                return $dic->getIndexController();
+                return await $dic->getIndexController();
             } else {
                 throw new NotFound();
             }

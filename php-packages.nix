@@ -63,28 +63,7 @@ let
       };
     };
   };
-  devPackages = {
-    "svanderburg/composer2nix" = {
-      targetDir = "";
-      src = composerEnv.buildZipPackage {
-        name = "svanderburg-composer2nix-2f130084b545992954567d758039bf65698e1603";
-        src = fetchurl {
-          url = https://api.github.com/repos/svanderburg/composer2nix/zipball/2f130084b545992954567d758039bf65698e1603;
-          sha256 = "01ncwl0vnb6l4za5982ilivsbp4myqwyilpx90sszcyv0549x028";
-        };
-      };
-    };
-    "svanderburg/pndp" = {
-      targetDir = "";
-      src = composerEnv.buildZipPackage {
-        name = "svanderburg-pndp-4bfe9c4120c23354ab8dc295957dc3009a39bff0";
-        src = fetchurl {
-          url = https://api.github.com/repos/svanderburg/pndp/zipball/4bfe9c4120c23354ab8dc295957dc3009a39bff0;
-          sha256 = "0n2vwpwshv16bhb7a6j95m664zh4lpfa7dqmcyhmn89nxpgvg91y";
-        };
-      };
-    };
-  };
+  devPackages = {};
 in
 composerEnv.buildPackage {
   inherit packages devPackages noDev;

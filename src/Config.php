@@ -2,6 +2,11 @@
 
 namespace PLC;
 
+/**
+ * Static Configuration class
+ *
+ * Provides database credentials.
+ */
 class Config
 {
     public static string $HOST = 'localhost';

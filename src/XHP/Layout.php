@@ -1,10 +1,15 @@
 <?hh // strict
 
-class :plc:layout extends :x:element {
+/**
+ * Defines layout element with common head elements and title attribute
+ */
+class :plc:layout extends :x:element
+{
     children (:div)+;
     attribute :title;
 
-    protected function render(): \XHPRoot {
+    protected function render(): \XHPRoot
+    {
         return
             <x:doctype>
                 <html>

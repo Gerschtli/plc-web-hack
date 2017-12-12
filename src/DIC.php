@@ -11,6 +11,11 @@ use PLC\Controller\Index;
 use PLC\Controller\PassThru;
 use Viewable;
 
+/**
+ * Dependency injection container
+ *
+ * Provides getter for controller with all instances needed.
+ */
 class DIC
 {
     private ?AsyncMysqlConnectionPool $_mysqlConnectionPool;
@@ -44,6 +49,7 @@ class DIC
 
     private function _getMysqlConnectionPool(): AsyncMysqlConnectionPool
     {
+        // open only one connection pool
         if ($this->_mysqlConnectionPool === null) {
             $this->_mysqlConnectionPool = new AsyncMysqlConnectionPool(['pool_connection_limit' => 100]);
         }

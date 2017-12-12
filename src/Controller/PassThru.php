@@ -4,6 +4,11 @@ namespace PLC\Controller;
 
 use Viewable;
 
+/**
+ * PassThru Controller
+ *
+ * Delegates render call straight to provided view.
+ */
 class PassThru implements Controllable
 {
     public function __construct(private Viewable $view)

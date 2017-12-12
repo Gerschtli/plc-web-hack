@@ -1,5 +1,8 @@
 <?hh // strict
 
+/**
+ * View for 404 error
+ */
 class NotFoundView extends View implements Viewable
 {
     public function render(): void

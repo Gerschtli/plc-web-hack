@@ -9,27 +9,25 @@ class Router
 {
     /**
      * Calls Controller and handles Exceptions.
-     *
-     * @param  string $method   HTTP Method
-     * @param  string $uri      Requested URI
      */
-    public static async function route(string $method, string $uri): Awaitable<void>
+    public static async function route(): Awaitable<void>
     {
-        $controllable = await self::getControllable($method, $uri);
+        $controllable = await self::getControllable();
         await $controllable->render();
     }
 
     /**
      * Get Controllable object by method and uri.
      *
-     * @param  string $method  HTTP Method
-     * @param  string $uri     Requested URI
      * @return Controllable    Controllable instance
      */
-    private static async function getControllable(string $method, string $uri): Awaitable<Controllable>
+    private static async function getControllable(): Awaitable<Controllable>
     {
         // init dependency injection container
         $dic = new DIC();
+
+        $server = $dic->getGlobalsUtil()->getServer();
+        $uri    = $server['REQUEST_URI'];
 
         try {
             if ($uri === '/') {

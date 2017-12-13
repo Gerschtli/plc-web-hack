@@ -9,6 +9,7 @@ use NotFoundView;
 use PLC\Controller\Controllable;
 use PLC\Controller\Index;
 use PLC\Controller\PassThru;
+use PLC\Util\Globals;
 use Viewable;
 
 /**
@@ -19,6 +20,11 @@ use Viewable;
 class DIC
 {
     private ?AsyncMysqlConnectionPool $_mysqlConnectionPool;
+
+    public function getGlobalsUtil(): Globals
+    {
+        return new Globals();
+    }
 
     public async function getIndexController(): Awaitable<Controllable>
     {

@@ -9,13 +9,5 @@ use Viewable;
  *
  * Delegates render call straight to provided view.
  */
-class PassThru implements Controllable
-{
-    public function __construct(private Viewable $view)
-    {}
-
-    public async function render(): Awaitable<void>
-    {
-        $this->view->render();
-    }
-}
+class PassThru extends Controller implements Controllable
+{}

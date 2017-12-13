@@ -18,5 +18,5 @@ interface Viewable
     /**
      * Renders view.
      */
-    public function render(): void;
+    public function render(): :xhp;
 }

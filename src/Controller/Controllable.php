@@ -2,15 +2,17 @@
 
 namespace PLC\Controller;
 
+use Viewable;
+
 /**
  * Interface for all Controllers
  */
 interface Controllable
 {
+    require extends Controller;
+
     /**
      * Renders the page.
-     *
-     * @return Awaitable<void>
      */
     public function render(): Awaitable<void>;
 }

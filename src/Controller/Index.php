@@ -8,16 +8,18 @@ use Viewable;
 /**
  * Renders index page of blog
  */
-class Index implements Controllable
+class Index extends Controller implements Controllable
 {
-    public function __construct(private Viewable $_view, private AsyncMysqlConnection $_connection)
-    {}
+    public function __construct(Viewable $view, private AsyncMysqlConnection $_connection)
+    {
+        parent::__construct($view);
+    }
 
-    public async function render(): Awaitable<void>
+    <<__Override>>
+    protected async function _run(): Awaitable<void>
     {
         // example database query
         $result = await $this->_connection->queryf('SELECT fullname, username FROM user');
         $this->_view->put('result', $result->mapRowsTyped());
-        $this->_view->render();
     }
 }

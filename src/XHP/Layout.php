@@ -5,7 +5,7 @@
  */
 class :plc:layout extends :x:element
 {
-    children (:div)+;
+    children (:xhp)+;
     attribute :title;
 
     protected function render(): \XHPRoot

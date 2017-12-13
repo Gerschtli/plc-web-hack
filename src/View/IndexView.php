@@ -5,13 +5,11 @@
  */
 class IndexView extends View implements Viewable
 {
-    public function render(): void
+    public function render(): :xhp
     {
-        echo
+        return
             <plc:layout title="Startseite">
-                <div>
-                    <strong>hallo</strong>
-                </div>
+                <strong>hallo</strong>
             </plc:layout>;
     }
 }

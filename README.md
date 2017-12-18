@@ -11,7 +11,7 @@ $ hhvm bin/composer install
 
 ### VM
 
-With `nixops` (see [nixops deployment tool](https://nixos.org/nixops/):
+With `nixops` (see [nixops deployment tool](https://nixos.org/nixops/)):
 ```sh
 $ # only needed for the first time
 $ nixops/manage dev create "<nixops/dev.nix>"

@@ -45,11 +45,11 @@ class DIC
     private function _getMysqlConnection(): Awaitable<AsyncMysqlConnection>
     {
         return $this->_getMysqlConnectionPool()->connect(
-            Config::$HOST,
-            Config::$PORT,
-            Config::$DB,
-            Config::$USER,
-            Config::$PASSWORD
+            Config::HOST,
+            Config::PORT,
+            Config::DB,
+            Config::USER,
+            Config::PASSWORD
         );
     }
 

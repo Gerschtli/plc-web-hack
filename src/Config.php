@@ -9,9 +9,9 @@ namespace PLC;
  */
 class Config
 {
-    public static string $HOST = 'localhost';
-    public static int $PORT = 3306;
-    public static string $DB = 'blog';
-    public static string $USER = 'plc';
-    public static string $PASSWORD = 'test';
+    const string HOST = 'localhost';
+    const int PORT = 3306;
+    const string DB = 'blog';
+    const string USER = 'plc';
+    const string PASSWORD = 'test';
 }

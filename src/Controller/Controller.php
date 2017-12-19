@@ -16,11 +16,11 @@ abstract class Controller
 
     public async function render(): Awaitable<void>
     {
-        $model = await $this->_run();
+        $model = await $this->_buildModel();
         echo $this->_view->render($model);
     }
 
-    protected async function _run(): Awaitable<Model>
+    protected async function _buildModel(): Awaitable<Model>
     {
         return new NoData();
     }

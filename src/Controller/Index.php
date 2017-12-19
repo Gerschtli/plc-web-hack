@@ -18,7 +18,7 @@ class Index extends Controller implements Controllable
     }
 
     <<__Override>>
-    protected async function _run(): Awaitable<Model>
+    protected async function _buildModel(): Awaitable<Model>
     {
         // example database query
         $result = await $this->_connection->queryf(

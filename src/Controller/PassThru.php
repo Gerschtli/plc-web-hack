@@ -2,8 +2,6 @@
 
 namespace PLC\Controller;
 
-use Viewable;
-
 /**
  * PassThru Controller
  *

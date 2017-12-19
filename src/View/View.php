@@ -1,20 +1,15 @@
 <?hh // strict
 
-/**
- * Abstracts common methods of views.
- */
-abstract class View
-{
-    protected Map<string, mixed> $_data = Map {};
+use PLC\Model\View\Model;
 
-    /**
-     * Put data into view.
-     *
-     * @param  string $key   Key
-     * @param  mixed  $data  Data
-     */
-    public function put(string $key, mixed $data): void
+abstract class View<T as Model>
+{
+    public function __construct(private classname<T> $_cls)
+    {}
+
+    protected function _castModel(Model $model): T
     {
-        $this->_data[$key] = $data;
+        invariant($model instanceof $this->_cls, "Not Child");
+        return $model;
     }
 }

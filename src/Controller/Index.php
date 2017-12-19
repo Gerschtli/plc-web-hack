@@ -3,6 +3,8 @@
 namespace PLC\Controller;
 
 use AsyncMysqlConnection;
+use PLC\Model\View\Model;
+use PLC\Model\View\Index as IndexModel;
 use Viewable;
 
 /**
@@ -16,10 +18,14 @@ class Index extends Controller implements Controllable
     }
 
     <<__Override>>
-    protected async function _run(): Awaitable<void>
+    protected async function _run(): Awaitable<Model>
     {
         // example database query
-        $result = await $this->_connection->queryf('SELECT fullname, username FROM user');
-        $this->_view->put('result', $result->mapRowsTyped());
+        $result = await $this->_connection->queryf(
+            'SELECT a.id, a.title, a.teaser, a.created_at, a.updated_at, u.fullname '
+            . 'FROM article a JOIN user u ON a.author_id = u.id ORDER BY updated_at DESC'
+        );
+
+        return new IndexModel($result->mapRowsTyped());
     }
 }

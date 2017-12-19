@@ -2,6 +2,8 @@
 
 namespace PLC\Controller;
 
+use PLC\Model\View\Model;
+use PLC\Model\View\NoData;
 use Viewable;
 
 /**
@@ -14,10 +16,12 @@ abstract class Controller
 
     public async function render(): Awaitable<void>
     {
-        await $this->_run();
-        echo $this->_view->render();
+        $model = await $this->_run();
+        echo $this->_view->render($model);
     }
 
-    protected async function _run(): Awaitable<void>
-    {}
+    protected async function _run(): Awaitable<Model>
+    {
+        return new NoData();
+    }
 }

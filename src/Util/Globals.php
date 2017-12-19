@@ -1,4 +1,5 @@
 <?hh
+// not strict because needed access to globals
 
 namespace PLC\Util;
 

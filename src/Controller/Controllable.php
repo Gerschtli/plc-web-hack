@@ -3,7 +3,7 @@
 namespace PLC\Controller;
 
 /**
- * Interface for all Controllers
+ * Interface for all Controllers.
  */
 interface Controllable
 {

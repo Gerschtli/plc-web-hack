@@ -8,7 +8,7 @@ use PLC\Model\View\Index as IndexModel;
 use Viewable;
 
 /**
- * Renders index page of blog
+ * Renders index page of blog.
  */
 class Index extends Controller implements Controllable
 {

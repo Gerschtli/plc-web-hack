@@ -3,7 +3,7 @@
 use PLC\Model\View\Index;
 
 /**
- * View for index page
+ * View for index page.
  */
 class IndexView extends View<Index> implements Viewable
 {

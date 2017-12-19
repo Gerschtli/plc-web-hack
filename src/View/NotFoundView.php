@@ -3,7 +3,7 @@
 use PLC\Model\View\NoData;
 
 /**
- * View for 404 error
+ * View for 404 error.
  */
 class NotFoundView extends View<NoData> implements Viewable
 {

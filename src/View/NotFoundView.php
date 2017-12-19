@@ -1,19 +1,18 @@
 <?hh // strict
 
-use PLC\Model\View\Model;
 use PLC\Model\View\NoData;
 
 /**
  * View for 404 error
  */
-class NotFoundView extends View<Model> implements Viewable
+class NotFoundView extends View<NoData> implements Viewable
 {
     public function __construct()
     {
         parent::__construct(NoData::class);
     }
 
-    public function render(Model $model): :xhp
+    protected function _render(NoData $model): :xhp
     {
         return
             <plc:layout title="404">

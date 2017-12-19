@@ -1,7 +1,6 @@
 <?hh // strict
 
 use PLC\Model\View\Index;
-use PLC\Model\View\Model;
 
 /**
  * View for index page
@@ -13,9 +12,8 @@ class IndexView extends View<Index> implements Viewable
         parent::__construct(Index::class);
     }
 
-    public function render(Model $model): :xhp
+    protected function _render(Index $model): :xhp
     {
-        $model = $this->_castModel($model);
         return
             <plc:layout title="Startseite">
                 <h1>Alle Artikel</h1>

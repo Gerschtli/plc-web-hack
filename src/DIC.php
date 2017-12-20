@@ -9,9 +9,11 @@ use NotFoundView;
 use PLC\Controller\Controllable;
 use PLC\Controller\Index;
 use PLC\Controller\PassThru;
+use PLC\Controller\Register;
 use PLC\Service\Article;
 use PLC\Service\User;
 use PLC\Util\Globals;
+use RegisterView;
 use Viewable;
 
 /**
@@ -38,6 +40,12 @@ class DIC
     public function getNotFoundController(): Controllable
     {
         return new PassThru(new NotFoundView());
+    }
+
+    public async function getRegisterController(): Awaitable<Controllable>
+    {
+        $userService = await $this->_getUserService();
+        return new Register(new RegisterView(), $userService);
     }
 
 

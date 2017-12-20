@@ -33,6 +33,8 @@ class Router
         try {
             if ($uri === '/') {
                 return await $dic->getIndexController();
+            } else if ($uri === '/register') {
+                return await $dic->getRegisterController();
             } else {
                 throw new NotFound();
             }

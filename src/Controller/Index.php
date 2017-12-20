@@ -20,7 +20,6 @@ class Index extends Controller implements Controllable
     <<__Override>>
     protected async function _buildModel(): Awaitable<Model>
     {
-        // example database query
         $result = await $this->_article->findAll();
 
         return new IndexModel($result);

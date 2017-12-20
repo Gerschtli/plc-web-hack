@@ -28,16 +28,18 @@ class DIC
         return new Globals();
     }
 
+
     public async function getIndexController(): Awaitable<Controllable>
     {
         $articleService = await $this->_getArticleService();
-        return new Index($this->_getIndexView(), $articleService);
+        return new Index(new IndexView(), $articleService);
     }
 
     public function getNotFoundController(): Controllable
     {
-        return new PassThru($this->_getNotFoundView());
+        return new PassThru(new NotFoundView());
     }
+
 
     private async function _getArticleService(): Awaitable<Article>
     {
@@ -51,15 +53,6 @@ class DIC
         return new User($connection);
     }
 
-    private function _getIndexView(): Viewable
-    {
-        return new IndexView();
-    }
-
-    private function _getNotFoundView(): Viewable
-    {
-        return new NotFoundView();
-    }
 
     private function _getMysqlConnection(): Awaitable<AsyncMysqlConnection>
     {

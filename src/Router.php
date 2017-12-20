@@ -12,6 +12,7 @@ class Router
      */
     public static async function route(): Awaitable<void>
     {
+        session_start();
         $controllable = await self::getControllable();
         await $controllable->render();
     }

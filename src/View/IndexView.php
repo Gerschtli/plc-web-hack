@@ -1,5 +1,6 @@
 <?hh // strict
 
+use PLC\Model\Article;
 use PLC\Model\View\Index;
 
 /**
@@ -30,11 +31,11 @@ class IndexView extends View<Index> implements Viewable
         return $xhp;
     }
 
-    private function _showArticle(Map<string, mixed> $article): :xhp
+    private function _showArticle(Article $article): :xhp
     {
         return
             <div>
-                <h3>{$article['title']}</h3>
+                <h3>{$article->getTitle()}</h3>
             </div>;
     }
 }

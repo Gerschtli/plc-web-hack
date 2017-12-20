@@ -9,6 +9,8 @@ use NotFoundView;
 use PLC\Controller\Controllable;
 use PLC\Controller\Index;
 use PLC\Controller\PassThru;
+use PLC\Service\Article;
+use PLC\Service\User;
 use PLC\Util\Globals;
 use Viewable;
 
@@ -28,8 +30,8 @@ class DIC
 
     public async function getIndexController(): Awaitable<Controllable>
     {
-        $connection = await $this->_getMysqlConnection();
-        return new Index($this->_getIndexView(), $connection);
+        $articleService = await $this->_getArticleService();
+        return new Index($this->_getIndexView(), $articleService);
     }
 
     public function getNotFoundController(): Controllable
@@ -37,9 +39,26 @@ class DIC
         return new PassThru($this->_getNotFoundView());
     }
 
+    private async function _getArticleService(): Awaitable<Article>
+    {
+        $connection = await $this->_getMysqlConnection();
+        return new Article($connection);
+    }
+
+    private async function _getUserService(): Awaitable<User>
+    {
+        $connection = await $this->_getMysqlConnection();
+        return new User($connection);
+    }
+
     private function _getIndexView(): Viewable
     {
         return new IndexView();
+    }
+
+    private function _getNotFoundView(): Viewable
+    {
+        return new NotFoundView();
     }
 
     private function _getMysqlConnection(): Awaitable<AsyncMysqlConnection>
@@ -60,10 +79,5 @@ class DIC
             $this->_mysqlConnectionPool = new AsyncMysqlConnectionPool(['pool_connection_limit' => 100]);
         }
         return $this->_mysqlConnectionPool;
-    }
-
-    private function _getNotFoundView(): Viewable
-    {
-        return new NotFoundView();
     }
 }

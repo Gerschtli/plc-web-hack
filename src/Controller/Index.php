@@ -2,9 +2,9 @@
 
 namespace PLC\Controller;
 
-use AsyncMysqlConnection;
-use PLC\Model\View\Model;
 use PLC\Model\View\Index as IndexModel;
+use PLC\Model\View\Model;
+use PLC\Service\Article;
 use Viewable;
 
 /**
@@ -12,7 +12,7 @@ use Viewable;
  */
 class Index extends Controller implements Controllable
 {
-    public function __construct(Viewable $view, private AsyncMysqlConnection $_connection)
+    public function __construct(Viewable $view, private Article $_article)
     {
         parent::__construct($view);
     }
@@ -21,11 +21,8 @@ class Index extends Controller implements Controllable
     protected async function _buildModel(): Awaitable<Model>
     {
         // example database query
-        $result = await $this->_connection->queryf(
-            'SELECT a.id, a.title, a.teaser, a.created_at, a.updated_at, u.fullname '
-            . 'FROM article a JOIN user u ON a.author_id = u.id ORDER BY updated_at DESC'
-        );
+        $result = await $this->_article->findAll();
 
-        return new IndexModel($result->mapRowsTyped());
+        return new IndexModel($result);
     }
 }

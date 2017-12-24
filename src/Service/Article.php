@@ -13,9 +13,11 @@ class Article
     public async function findAll(): Awaitable<Vector<ArticleModel>>
     {
         $result = await $this->_connection->queryf(
-            'SELECT article_id, title, teaser, body, teaser_html, body_html, created_at, updated_at, user_id, fullname, username, password '
-            . 'FROM article JOIN user ORDER BY updated_at DESC'
+            'SELECT a.article_id, a.title, a.teaser, a.body, a.teaser_html, a.body_html, a.created_at, a.updated_at, '
+            . 'u.user_id, u.fullname, u.username, u.password '
+            . 'FROM article a JOIN user u ON a.author_id = u.user_id ORDER BY a.updated_at DESC'
         );
+
         return $result->mapRowsTyped()->map($data ==> {
             return ArticleModel::create($data);
         });

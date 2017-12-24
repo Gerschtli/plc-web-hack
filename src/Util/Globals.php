@@ -8,9 +8,9 @@ class Globals
     /**
      * Get global POST array as map.
      *
-     * @return Map<string, mixed>  Typed POST array
+     * @return Map<string, string>  Typed POST array
      */
-    public function getPost(): Map<string, mixed>
+    public function getPost(): Map<string, string>
     {
         return new Map($_POST);
     }

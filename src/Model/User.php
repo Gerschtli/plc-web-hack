@@ -8,6 +8,7 @@ class User
     private ?string $_fullname;
     private ?string $_username;
     private ?string $_password;
+    private ?string $_passwordRepeat;
 
     public static function create(Map<string, mixed> $data): User
     {
@@ -68,5 +69,15 @@ class User
     public function setPassword(string $password): void
     {
         $this->_password = $password;
+    }
+
+    public function getPasswordRepeat(): ?string
+    {
+        return $this->_passwordRepeat;
+    }
+
+    public function setPasswordRepeat(string $passwordRepeat): void
+    {
+        $this->_passwordRepeat = $passwordRepeat;
     }
 }

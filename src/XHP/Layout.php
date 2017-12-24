@@ -20,7 +20,12 @@ class :plc:layout extends :x:element
                         <link rel="stylesheet" href="/css/main.css" />
                     </head>
                     <body>
-                        {$this->getChildren()}
+                        <div class="headline">
+                            <h1><a class="no-decoration" href="/">Herzlich Willkommen bei unserem Blog!</a></h1>
+                        </div>
+                        <div class="wrapper">
+                            {$this->getChildren()}
+                        </div>
                     </body>
                 </html>
             </x:doctype>;

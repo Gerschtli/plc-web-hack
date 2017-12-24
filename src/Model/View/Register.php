@@ -9,11 +9,25 @@ use PLC\Model\User;
  */
 class Register implements Model
 {
-    public function __construct(private ?User $_user)
+    public function __construct(
+        private ?User $_user,
+        private ?Vector<string> $_errors,
+        private bool $_isSuccess
+    )
     {}
+
+    public function getErrors(): ?Vector<string>
+    {
+        return $this->_errors;
+    }
 
     public function getUser(): ?User
     {
         return $this->_user;
+    }
+
+    public function isSuccess(): bool
+    {
+        return $this->_isSuccess;
     }
 }

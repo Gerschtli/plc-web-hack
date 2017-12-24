@@ -11,7 +11,8 @@ use PLC\Controller\Index;
 use PLC\Controller\PassThru;
 use PLC\Controller\Register;
 use PLC\Service\Article;
-use PLC\Service\User;
+use PLC\Service\User as UserService;
+use PLC\Validator\User as UserValidator;
 use PLC\Util\Globals;
 use RegisterView;
 use Viewable;
@@ -44,21 +45,39 @@ class DIC
 
     public async function getRegisterController(): Awaitable<Controllable>
     {
-        $userService = await $this->_getUserService();
-        return new Register(new RegisterView(), $userService);
+        $userService   = await $this->_getUserService();
+        $userValidator = await $this->_getUserValidator($userService);
+
+        return new Register(
+            new RegisterView(),
+            $userService,
+            $this->getGlobalsUtil(),
+            $userValidator
+        );
     }
 
 
     private async function _getArticleService(): Awaitable<Article>
     {
         $connection = await $this->_getMysqlConnection();
+
         return new Article($connection);
     }
 
-    private async function _getUserService(): Awaitable<User>
+    private async function _getUserService(): Awaitable<UserService>
     {
         $connection = await $this->_getMysqlConnection();
-        return new User($connection);
+
+        return new UserService($connection);
+    }
+
+    private async function _getUserValidator(?UserService $userService = null): Awaitable<UserValidator>
+    {
+        if ($userService === null) {
+            $userService = await $this->_getUserService();
+        }
+
+        return new UserValidator($userService);
     }
 
 
@@ -79,6 +98,7 @@ class DIC
         if ($this->_mysqlConnectionPool === null) {
             $this->_mysqlConnectionPool = new AsyncMysqlConnectionPool(['pool_connection_limit' => 100]);
         }
+
         return $this->_mysqlConnectionPool;
     }
 }

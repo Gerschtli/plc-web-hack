@@ -3,7 +3,11 @@
 namespace PLC;
 
 use PLC\Controller\Controllable;
+use PLC\Exception\Forbidden;
 use PLC\Exception\NotFound;
+use PLC\Exception\Redirect;
+use PLC\Exception\ResponseCode;
+use Exception;
 
 class Router
 {
@@ -13,8 +17,30 @@ class Router
     public static async function route(): Awaitable<void>
     {
         session_start();
-        $controllable = await self::getControllable();
-        await $controllable->render();
+
+        // init dependency injection container
+        $dic = new DIC();
+
+        try {
+            $controllable = await self::getControllable($dic);
+            await $controllable->render();
+        } catch (Redirect $exception) {
+            self::_setResponseCode($exception);
+            header("Location:{$exception->getUri()}");
+            exit();
+        } catch (Forbidden $exception) {
+            self::_setResponseCode($exception);
+
+            await $dic->getForbiddenController()->render();
+        } catch (NotFound $exception) {
+            self::_setResponseCode($exception);
+
+            await $dic->getNotFoundController()->render();
+        } catch (Exception $exception) {
+            self::_setResponseCodeInt(ResponseCode::HTTP_INTERNAL_SERVER_ERROR);
+
+            await $dic->getExceptionController()->render();
+        }
     }
 
     /**
@@ -22,24 +48,28 @@ class Router
      *
      * @return Controllable    Controllable instance
      */
-    private static async function getControllable(): Awaitable<Controllable>
+    private static async function getControllable(DIC $dic): Awaitable<Controllable>
     {
-        // init dependency injection container
-        $dic = new DIC();
-
         $server = $dic->getGlobalsUtil()->getServer();
         $uri    = $server['REQUEST_URI'];
 
-        try {
-            if ($uri === '/') {
-                return await $dic->getIndexController();
-            } else if ($uri === '/register') {
-                return await $dic->getRegisterController();
-            } else {
-                throw new NotFound();
-            }
-        } catch (NotFound $exception) {
-            return $dic->getNotFoundController();
+        if ($uri === '/') {
+            return await $dic->getIndexController();
         }
+        if ($uri === '/register') {
+            return await $dic->getRegisterController();
+        }
+
+        throw new NotFound();
+    }
+
+    private static function _setResponseCodeInt(int $responseCode): void
+    {
+        http_response_code($responseCode);
+    }
+
+    private static function _setResponseCode(ResponseCode $responseCode): void
+    {
+        self::_setResponseCodeInt($responseCode->getResponseCode());
     }
 }

@@ -4,6 +4,8 @@ namespace PLC;
 
 use AsyncMysqlConnection;
 use AsyncMysqlConnectionPool;
+use ExceptionView;
+use ForbiddenView;
 use IndexView;
 use NotFoundView;
 use PLC\Controller\Controllable;
@@ -32,9 +34,20 @@ class DIC
     }
 
 
+    public function getExceptionController(): Controllable
+    {
+        return new PassThru(new ExceptionView());
+    }
+
+    public function getForbiddenController(): Controllable
+    {
+        return new PassThru(new ForbiddenView());
+    }
+
     public async function getIndexController(): Awaitable<Controllable>
     {
         $articleService = await $this->_getArticleService();
+
         return new Index(new IndexView(), $articleService);
     }
 

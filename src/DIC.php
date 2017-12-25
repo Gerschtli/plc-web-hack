@@ -7,15 +7,18 @@ use AsyncMysqlConnectionPool;
 use ExceptionView;
 use ForbiddenView;
 use IndexView;
+use LoginView;
 use NotFoundView;
 use PLC\Controller\Controllable;
 use PLC\Controller\Index;
+use PLC\Controller\Login;
 use PLC\Controller\PassThru;
 use PLC\Controller\Register;
 use PLC\Service\Article;
 use PLC\Service\User as UserService;
-use PLC\Validator\User as UserValidator;
 use PLC\Util\Globals;
+use PLC\Validator\Login as LoginValidator;
+use PLC\Validator\User as UserValidator;
 use RegisterView;
 use Viewable;
 
@@ -51,6 +54,14 @@ class DIC
         return new Index(new IndexView(), $articleService);
     }
 
+    public async function getLoginController(): Awaitable<Controllable>
+    {
+        $userService    = await $this->_getUserService();
+        $loginValidator = await $this->_getLoginValidator($userService);
+
+        return new Login(new LoginView(), $userService, $this->getGlobalsUtil(), $loginValidator);
+    }
+
     public function getNotFoundController(): Controllable
     {
         return new PassThru(new NotFoundView());
@@ -82,6 +93,16 @@ class DIC
         $connection = await $this->_getMysqlConnection();
 
         return new UserService($connection);
+    }
+
+
+    private async function _getLoginValidator(?UserService $userService = null): Awaitable<LoginValidator>
+    {
+        if ($userService === null) {
+            $userService = await $this->_getUserService();
+        }
+
+        return new LoginValidator($userService);
     }
 
     private async function _getUserValidator(?UserService $userService = null): Awaitable<UserValidator>

@@ -59,6 +59,9 @@ class Router
         if ($uri === '/register') {
             return await $dic->getRegisterController();
         }
+        if ($uri === '/login') {
+            return await $dic->getLoginController();
+        }
 
         throw new NotFound();
     }

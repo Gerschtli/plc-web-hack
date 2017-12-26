@@ -1,11 +1,12 @@
 <?hh // strict
 
-namespace PLC\Controller;
+namespace PLC\Module\Login;
 
-use PLC\Exception\Redirect;
+use PLC\Controller\BaseController;
+use PLC\Controller\Controllable;
 use PLC\Model\User as UserModel;
-use PLC\Model\View\Login as LoginModel;
 use PLC\Model\View\BaseModel;
+use PLC\Model\View\Login as LoginModel;
 use PLC\Service\User as UserService;
 use PLC\Util\Globals;
 use PLC\Validator\Login as LoginValidator;
@@ -14,7 +15,7 @@ use Viewable;
 /**
  * Renders login page of blog.
  */
-class Login extends BaseController implements Controllable
+class Controller extends BaseController implements Controllable
 {
     public function __construct(
         Viewable $view,
@@ -43,10 +44,10 @@ class Login extends BaseController implements Controllable
 
             if ($errors->isEmpty()) {
                 // TODO: login
-                throw new Redirect('/admin');
+                $this->_redirectTo('/admin');
             }
         }
 
-        return new LoginModel($errors);
+        return new Model($errors);
     }
 }

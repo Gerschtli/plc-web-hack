@@ -10,6 +10,12 @@ use Viewable;
  */
 abstract class BaseController
 {
+    const int HTTP_OK                    = 200;
+    const int HTTP_FOUND                 = 302;
+    const int HTTP_FORBIDDEN             = 403;
+    const int HTTP_NOT_FOUND             = 404;
+    const int HTTP_INTERNAL_SERVER_ERROR = 500;
+
     public function __construct(protected Viewable $_view)
     {}
 
@@ -28,5 +34,17 @@ abstract class BaseController
     protected async function _buildModel(): Awaitable<BaseModel>
     {
         return new BaseModel();
+    }
+
+    protected function _redirectTo(string $uri, int $code = self::HTTP_FOUND): void
+    {
+        $this->_setResponseCode($code);
+        header("Location:{$uri}");
+        exit();
+    }
+
+    protected function _setResponseCode(int $code): void
+    {
+        http_response_code($code);
     }
 }

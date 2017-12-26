@@ -10,9 +10,9 @@ use IndexView;
 use LoginView;
 use NotFoundView;
 use PLC\Controller\Controllable;
-use PLC\Controller\Login;
 use PLC\Controller\PassThru;
 use PLC\Module\Index\Controller as IndexController;
+use PLC\Module\Login\Controller as LoginController;
 use PLC\Module\Register\Controller as RegisterController;
 use PLC\Service\Article;
 use PLC\Service\User as UserService;
@@ -59,7 +59,7 @@ class DIC
         $userService    = await $this->_getUserService();
         $loginValidator = await $this->_getLoginValidator($userService);
 
-        return new Login(new LoginView(), $userService, $this->getGlobalsUtil(), $loginValidator);
+        return new LoginController(new LoginView(), $userService, $this->getGlobalsUtil(), $loginValidator);
     }
 
     public function getNotFoundController(): Controllable

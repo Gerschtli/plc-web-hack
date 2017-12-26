@@ -4,13 +4,16 @@ namespace PLC;
 
 use AsyncMysqlConnection;
 use AsyncMysqlConnectionPool;
-use ExceptionView;
-use ForbiddenView;
+use Exception;
+
+use ErrorView;
 use IndexView;
 use LoginView;
-use NotFoundView;
+use RegisterView;
+use Viewable;
+
 use PLC\Controller\Controllable;
-use PLC\Controller\PassThru;
+use PLC\Module\Error\Controller as ErrorController;
 use PLC\Module\Index\Controller as IndexController;
 use PLC\Module\Login\Controller as LoginController;
 use PLC\Module\Register\Controller as RegisterController;
@@ -19,8 +22,6 @@ use PLC\Service\User as UserService;
 use PLC\Util\Globals;
 use PLC\Validator\Login as LoginValidator;
 use PLC\Validator\User as UserValidator;
-use RegisterView;
-use Viewable;
 
 /**
  * Dependency injection container
@@ -37,14 +38,9 @@ class DIC
     }
 
 
-    public function getExceptionController(): Controllable
+    public function getErrorController(Exception $exception): Controllable
     {
-        return new PassThru(new ExceptionView());
-    }
-
-    public function getForbiddenController(): Controllable
-    {
-        return new PassThru(new ForbiddenView());
+        return new ErrorController(new ErrorView(), $exception);
     }
 
     public async function getIndexController(): Awaitable<Controllable>
@@ -60,11 +56,6 @@ class DIC
         $loginValidator = await $this->_getLoginValidator($userService);
 
         return new LoginController(new LoginView(), $userService, $this->getGlobalsUtil(), $loginValidator);
-    }
-
-    public function getNotFoundController(): Controllable
-    {
-        return new PassThru(new NotFoundView());
     }
 
     public async function getRegisterController(): Awaitable<Controllable>

@@ -3,10 +3,7 @@
 namespace PLC;
 
 use PLC\Controller\Controllable;
-use PLC\Exception\Forbidden;
 use PLC\Exception\NotFound;
-use PLC\Exception\Redirect;
-use PLC\Exception\ResponseCode;
 use Exception;
 
 class Router
@@ -24,22 +21,8 @@ class Router
         try {
             $controllable = await self::getControllable($dic);
             await $controllable->render();
-        } catch (Redirect $exception) {
-            self::_setResponseCode($exception);
-            header("Location:{$exception->getUri()}");
-            exit();
-        } catch (Forbidden $exception) {
-            self::_setResponseCode($exception);
-
-            await $dic->getForbiddenController()->render();
-        } catch (NotFound $exception) {
-            self::_setResponseCode($exception);
-
-            await $dic->getNotFoundController()->render();
         } catch (Exception $exception) {
-            self::_setResponseCodeInt(ResponseCode::HTTP_INTERNAL_SERVER_ERROR);
-
-            await $dic->getExceptionController()->render();
+            await $dic->getErrorController($exception)->render();
         }
     }
 
@@ -64,15 +47,5 @@ class Router
         }
 
         throw new NotFound();
-    }
-
-    private static function _setResponseCodeInt(int $responseCode): void
-    {
-        http_response_code($responseCode);
-    }
-
-    private static function _setResponseCode(ResponseCode $responseCode): void
-    {
-        self::_setResponseCodeInt($responseCode->getResponseCode());
     }
 }

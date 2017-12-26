@@ -1,13 +1,14 @@
 <?hh // strict
 
-namespace PLC\Model\View;
+namespace PLC\Module\Register;
 
 use PLC\Model\User;
+use PLC\Model\View\BaseModel;
 
 /**
  * View model for register controller.
  */
-class Register extends BaseModel
+class Model extends BaseModel
 {
     public function __construct(
         private ?User $_user,

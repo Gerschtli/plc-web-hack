@@ -12,8 +12,8 @@ use NotFoundView;
 use PLC\Controller\Controllable;
 use PLC\Controller\Login;
 use PLC\Controller\PassThru;
-use PLC\Controller\Register;
 use PLC\Module\Index\Controller as IndexController;
+use PLC\Module\Register\Controller as RegisterController;
 use PLC\Service\Article;
 use PLC\Service\User as UserService;
 use PLC\Util\Globals;
@@ -72,7 +72,7 @@ class DIC
         $userService   = await $this->_getUserService();
         $userValidator = await $this->_getUserValidator($userService);
 
-        return new Register(
+        return new RegisterController(
             new RegisterView(),
             $userService,
             $this->getGlobalsUtil(),

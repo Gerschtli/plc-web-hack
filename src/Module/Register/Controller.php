@@ -1,7 +1,9 @@
 <?hh // strict
 
-namespace PLC\Controller;
+namespace PLC\Module\Register;
 
+use PLC\Controller\BaseController;
+use PLC\Controller\Controllable;
 use PLC\Model\User as UserModel;
 use PLC\Model\View\BaseModel;
 use PLC\Model\View\Register as RegisterModel;
@@ -13,7 +15,7 @@ use Viewable;
 /**
  * Renders register page of blog.
  */
-class Register extends BaseController implements Controllable
+class Controller extends BaseController implements Controllable
 {
     public function __construct(
         Viewable $view,
@@ -50,6 +52,6 @@ class Register extends BaseController implements Controllable
             }
         }
 
-        return new RegisterModel($user, $errors, $success);
+        return new Model($user, $errors, $success);
     }
 }

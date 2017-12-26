@@ -1,18 +1,19 @@
 <?hh // strict
 
 use PLC\Model\View\Register;
+use PLC\Module\Register\Model;
 
 /**
  * View for register.
  */
-class RegisterView extends View<Register> implements Viewable
+class RegisterView extends View<Model> implements Viewable
 {
     public function __construct()
     {
-        parent::__construct(Register::class);
+        parent::__construct(Model::class);
     }
 
-    protected function _render(Register $model): :xhp
+    protected function _render(Model $model): :xhp
     {
         $user = $model->getUser();
 

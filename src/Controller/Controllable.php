@@ -7,7 +7,7 @@ namespace PLC\Controller;
  */
 interface Controllable
 {
-    require extends Controller;
+    require extends BaseController;
 
     /**
      * Renders the page.

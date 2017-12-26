@@ -7,7 +7,7 @@ use PLC\Model\Article;
 /**
  * View model for index controller.
  */
-class Index implements Model
+class Index extends BaseModel
 {
     public function __construct(private Vector<Article> $_articles)
     {}

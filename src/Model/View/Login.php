@@ -7,7 +7,7 @@ use PLC\Model\User;
 /**
  * View model for register controller.
  */
-class Login implements Model
+class Login extends BaseModel
 {
     public function __construct(private ?Vector<string> $_errors)
     {}

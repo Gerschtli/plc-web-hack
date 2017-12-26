@@ -2,14 +2,13 @@
 
 namespace PLC\Controller;
 
-use PLC\Model\View\Model;
-use PLC\Model\View\NoData;
+use PLC\Model\View\BaseModel;
 use Viewable;
 
 /**
  * Abstracts common methods of controllers.
  */
-abstract class Controller
+abstract class BaseController
 {
     public function __construct(protected Viewable $_view)
     {}
@@ -26,8 +25,8 @@ abstract class Controller
     /**
      * Builds the model passed to the viewable.
      */
-    protected async function _buildModel(): Awaitable<Model>
+    protected async function _buildModel(): Awaitable<BaseModel>
     {
-        return new NoData();
+        return new BaseModel();
     }
 }

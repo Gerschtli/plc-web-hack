@@ -5,5 +5,5 @@ namespace PLC\Controller;
 /**
  * Delegates render call straight to provided view.
  */
-class PassThru extends Controller implements Controllable
+class PassThru extends BaseController implements Controllable
 {}

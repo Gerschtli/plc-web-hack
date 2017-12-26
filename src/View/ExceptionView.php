@@ -1,18 +1,18 @@
 <?hh // strict
 
-use PLC\Model\View\NoData;
+use PLC\Model\View\BaseModel;
 
 /**
  * View for 500 error.
  */
-class ExceptionView extends View<NoData> implements Viewable
+class ExceptionView extends View<BaseModel> implements Viewable
 {
     public function __construct()
     {
-        parent::__construct(NoData::class);
+        parent::__construct(BaseModel::class);
     }
 
-    protected function _render(NoData $model): :xhp
+    protected function _render(BaseModel $model): :xhp
     {
         return
             <plc:layout title="500">

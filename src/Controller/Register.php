@@ -3,7 +3,7 @@
 namespace PLC\Controller;
 
 use PLC\Model\User as UserModel;
-use PLC\Model\View\Model;
+use PLC\Model\View\BaseModel;
 use PLC\Model\View\Register as RegisterModel;
 use PLC\Service\User as UserService;
 use PLC\Util\Globals;
@@ -13,7 +13,7 @@ use Viewable;
 /**
  * Renders register page of blog.
  */
-class Register extends Controller implements Controllable
+class Register extends BaseController implements Controllable
 {
     public function __construct(
         Viewable $view,
@@ -26,7 +26,7 @@ class Register extends Controller implements Controllable
     }
 
     <<__Override>>
-    protected async function _buildModel(): Awaitable<Model>
+    protected async function _buildModel(): Awaitable<BaseModel>
     {
         $post = $this->_globals->getPost();
 

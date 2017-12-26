@@ -1,6 +1,6 @@
 <?hh // strict
 
-use PLC\Model\View\Model;
+use PLC\Model\View\BaseModel;
 
 /**
  * Interface for Views.
@@ -10,8 +10,8 @@ interface Viewable
     /**
      * Renders view.
      *
-     * @param  Model  $model  View model
-     * @return :xhp           HTML page
+     * @param  BaseModel  $model  View model
+     * @return :xhp               HTML page
      */
-    public function render(Model $model): :xhp;
+    public function render(BaseModel $model): :xhp;
 }

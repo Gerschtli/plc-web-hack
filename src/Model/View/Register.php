@@ -7,7 +7,7 @@ use PLC\Model\User;
 /**
  * View model for register controller.
  */
-class Register implements Model
+class Register extends BaseModel
 {
     public function __construct(
         private ?User $_user,

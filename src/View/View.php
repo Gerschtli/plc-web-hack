@@ -1,11 +1,11 @@
 <?hh // strict
 
-use PLC\Model\View\Model;
+use PLC\Model\View\BaseModel;
 
 /**
  * Abstracts common methods of views.
  */
-abstract class View<T as Model>
+abstract class View<T as BaseModel>
 {
     public function __construct(private classname<T> $_cls)
     {}
@@ -13,10 +13,10 @@ abstract class View<T as Model>
     /**
      * Renders view.
      *
-     * @param  Model  $model  View model
-     * @return :xhp           HTML page
+     * @param  BaseModel  $model  View model
+     * @return :xhp               HTML page
      */
-    public function render(Model $model): :xhp
+    public function render(BaseModel $model): :xhp
     {
         return $this->_render(
             $this->_castModel($model)
@@ -26,10 +26,10 @@ abstract class View<T as Model>
     /**
      * Asserts invariant that right view model is provided.
      *
-     * @param  Model  $model  View model
-     * @return T              Typed view model
+     * @param  BaseModel  $model  View model
+     * @return T                  Typed view model
      */
-    private function _castModel(Model $model): T
+    private function _castModel(BaseModel $model): T
     {
         invariant($model instanceof $this->_cls, 'Not the right View Model');
         return $model;

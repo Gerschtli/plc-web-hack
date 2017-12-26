@@ -2,10 +2,11 @@
 
 namespace PLC\Module\Error;
 
-use PLC\Model\View\BaseModel;
+use Exception;
 use PLC\Controller\BaseController;
 use PLC\Controller\Controllable;
-use Exception;
+use PLC\Model\View\BaseModel;
+use PLC\Util\ResponseCode;
 use Viewable;
 
 /**
@@ -21,7 +22,7 @@ class Controller extends BaseController implements Controllable
     <<__Override>>
     protected async function _buildModel(): Awaitable<BaseModel>
     {
-        $code    = self::HTTP_INTERNAL_SERVER_ERROR;
+        $code    = ResponseCode::INTERNAL_SERVER_ERROR;
         $message = 'Internal Server Error';
 
         return new Model($code, $message);

@@ -3,6 +3,7 @@
 namespace PLC\Controller;
 
 use PLC\Model\View\BaseModel;
+use PLC\Util\ResponseCode;
 use Viewable;
 
 /**
@@ -10,12 +11,6 @@ use Viewable;
  */
 abstract class BaseController
 {
-    const int HTTP_OK                    = 200;
-    const int HTTP_FOUND                 = 302;
-    const int HTTP_FORBIDDEN             = 403;
-    const int HTTP_NOT_FOUND             = 404;
-    const int HTTP_INTERNAL_SERVER_ERROR = 500;
-
     public function __construct(protected Viewable $_view)
     {}
 
@@ -36,14 +31,14 @@ abstract class BaseController
         return new BaseModel();
     }
 
-    protected function _redirectTo(string $uri, int $code = self::HTTP_FOUND): void
+    protected function _redirectTo(string $uri): void
     {
-        $this->_setResponseCode($code);
+        $this->_setResponseCode(ResponseCode::FOUND);
         header("Location:{$uri}");
         exit();
     }
 
-    protected function _setResponseCode(int $code): void
+    protected function _setResponseCode(ResponseCode $code): void
     {
         http_response_code($code);
     }

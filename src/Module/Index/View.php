@@ -6,7 +6,7 @@ use PLC\Module\Index\Model;
 /**
  * View for index page.
  */
-class IndexView extends View<Model> implements Viewable
+class IndexView extends BaseView<Model> implements Viewable
 {
     public function __construct()
     {

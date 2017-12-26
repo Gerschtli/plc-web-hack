@@ -6,8 +6,10 @@ use PLC\Module\Register\Model;
 /**
  * View for register.
  */
-class RegisterView extends View<Model> implements Viewable
+class RegisterView extends BaseView<Model> implements Viewable
 {
+    use FormExtension;
+
     public function __construct()
     {
         parent::__construct(Model::class);

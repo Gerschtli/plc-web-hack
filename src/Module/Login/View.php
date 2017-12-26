@@ -6,8 +6,10 @@ use PLC\Module\Login\Model;
 /**
  * View for login.
  */
-class LoginView extends View<Model> implements Viewable
+class LoginView extends BaseView<Model> implements Viewable
 {
+    use FormExtension;
+
     public function __construct()
     {
         parent::__construct(Model::class);

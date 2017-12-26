@@ -5,7 +5,7 @@ use PLC\Module\Error\Model;
 /**
  * View for index page.
  */
-class ErrorView extends View<Model> implements Viewable
+class ErrorView extends BaseView<Model> implements Viewable
 {
     public function __construct()
     {

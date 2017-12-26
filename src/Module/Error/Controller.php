@@ -5,6 +5,8 @@ namespace PLC\Module\Error;
 use Exception;
 use PLC\Controller\BaseController;
 use PLC\Controller\Controllable;
+use PLC\Exception\Forbidden;
+use PLC\Exception\NotFound;
 use PLC\Model\View\BaseModel;
 use PLC\Util\ResponseCode;
 use Viewable;
@@ -24,6 +26,14 @@ class Controller extends BaseController implements Controllable
     {
         $code    = ResponseCode::INTERNAL_SERVER_ERROR;
         $message = 'Internal Server Error';
+
+        if ($this->_exception instanceof Forbidden) {
+            $code    = ResponseCode::FORBIDDEN;
+            $message = 'Forbidden';
+        } else if ($this->_exception instanceof NotFound) {
+            $code    = ResponseCode::NOT_FOUND;
+            $message = 'Not Found';
+        }
 
         return new Model($code, $message);
     }

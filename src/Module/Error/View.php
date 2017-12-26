@@ -15,8 +15,8 @@ class ErrorView extends BaseView<Model> implements Viewable
     protected function _render(Model $model): :xhp
     {
         return
-            <plc:layout title="Startseite">
-                <h1>Alle Artikel</h1>
+            <plc:layout title={(string) $model->getCode()}>
+                <h1>{$model->getCode()} - {$model->getMessage()}</h1>
             </plc:layout>;
     }
 }

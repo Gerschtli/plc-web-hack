@@ -1,16 +1,17 @@
 <?hh // strict
 
-namespace PLC\Controller;
+namespace PLC\Module\Index;
 
-use PLC\Model\View\Index as IndexModel;
 use PLC\Model\View\BaseModel;
+use PLC\Controller\Controllable;
+use PLC\Controller\BaseController;
 use PLC\Service\Article;
 use Viewable;
 
 /**
  * Renders index page of blog.
  */
-class Index extends BaseController implements Controllable
+class Controller extends BaseController implements Controllable
 {
     public function __construct(Viewable $view, private Article $_article)
     {
@@ -22,6 +23,6 @@ class Index extends BaseController implements Controllable
     {
         $result = await $this->_article->findAll();
 
-        return new IndexModel($result);
+        return new Model($result);
     }
 }

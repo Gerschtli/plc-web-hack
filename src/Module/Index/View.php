@@ -1,19 +1,19 @@
 <?hh // strict
 
 use PLC\Model\Article;
-use PLC\Model\View\Index;
+use PLC\Module\Index\Model;
 
 /**
  * View for index page.
  */
-class IndexView extends View<Index> implements Viewable
+class IndexView extends View<Model> implements Viewable
 {
     public function __construct()
     {
-        parent::__construct(Index::class);
+        parent::__construct(Model::class);
     }
 
-    protected function _render(Index $model): :xhp
+    protected function _render(Model $model): :xhp
     {
         return
             <plc:layout title="Startseite">
@@ -22,7 +22,7 @@ class IndexView extends View<Index> implements Viewable
             </plc:layout>;
     }
 
-    private function _showArticles(Index $model): :xhp
+    private function _showArticles(Model $model): :xhp
     {
         $xhp = <div></div>;
         foreach ($model->getArticles() as $article) {

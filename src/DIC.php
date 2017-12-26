@@ -10,10 +10,10 @@ use IndexView;
 use LoginView;
 use NotFoundView;
 use PLC\Controller\Controllable;
-use PLC\Controller\Index;
 use PLC\Controller\Login;
 use PLC\Controller\PassThru;
 use PLC\Controller\Register;
+use PLC\Module\Index\Controller as IndexController;
 use PLC\Service\Article;
 use PLC\Service\User as UserService;
 use PLC\Util\Globals;
@@ -51,7 +51,7 @@ class DIC
     {
         $articleService = await $this->_getArticleService();
 
-        return new Index(new IndexView(), $articleService);
+        return new IndexController(new IndexView(), $articleService);
     }
 
     public async function getLoginController(): Awaitable<Controllable>

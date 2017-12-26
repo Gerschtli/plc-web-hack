@@ -1,13 +1,14 @@
 <?hh // strict
 
-namespace PLC\Model\View;
+namespace PLC\Module\Index;
 
 use PLC\Model\Article;
+use PLC\Model\View\BaseModel;
 
 /**
  * View model for index controller.
  */
-class Index extends BaseModel
+class Model extends BaseModel
 {
     public function __construct(private Vector<Article> $_articles)
     {}

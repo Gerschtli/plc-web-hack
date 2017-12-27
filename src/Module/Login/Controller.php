@@ -4,9 +4,8 @@ namespace PLC\Module\Login;
 
 use PLC\Controller\BaseController;
 use PLC\Controller\Controllable;
-use PLC\Model\User as UserModel;
 use PLC\Model\View\BaseModel;
-use PLC\Model\View\Login as LoginModel;
+use PLC\Service\Session;
 use PLC\Service\User as UserService;
 use PLC\Util\Globals;
 use PLC\Validator\Login as LoginValidator;
@@ -21,7 +20,8 @@ class Controller extends BaseController implements Controllable
         Viewable $view,
         private UserService $_userService,
         private Globals $_globals,
-        private LoginValidator $_loginValidator
+        private LoginValidator $_loginValidator,
+        private Session $_sessionService
     )
     {
         parent::__construct($view);
@@ -43,7 +43,7 @@ class Controller extends BaseController implements Controllable
             $errors = await $this->_loginValidator->validate($login);
 
             if ($errors->isEmpty()) {
-                // TODO: login
+                await $this->_sessionService->logInUser($post['username']);
                 $this->_redirectTo('/admin');
             }
         }

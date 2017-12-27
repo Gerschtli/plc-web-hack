@@ -34,4 +34,15 @@ class Globals
     {
         return new Map($_SESSION);
     }
+
+    /**
+     * Set value in SESSION array.
+     *
+     * @param string $key    Key
+     * @param mixed  $value  Value
+     */
+    public function setSession(string $key, mixed $value): void
+    {
+        $_SESSION[$key] = $value;
+    }
 }

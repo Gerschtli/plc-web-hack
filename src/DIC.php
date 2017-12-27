@@ -18,6 +18,7 @@ use PLC\Module\Index\Controller as IndexController;
 use PLC\Module\Login\Controller as LoginController;
 use PLC\Module\Register\Controller as RegisterController;
 use PLC\Service\Article;
+use PLC\Service\Session as SessionService;
 use PLC\Service\User as UserService;
 use PLC\Util\Globals;
 use PLC\Validator\Login as LoginValidator;
@@ -54,8 +55,15 @@ class DIC
     {
         $userService    = await $this->_getUserService();
         $loginValidator = await $this->_getLoginValidator($userService);
+        $sessionService = await $this->_getSessionService($userService);
 
-        return new LoginController(new LoginView(), $userService, $this->getGlobalsUtil(), $loginValidator);
+        return new LoginController(
+            new LoginView(),
+            $userService,
+            $this->getGlobalsUtil(),
+            $loginValidator,
+            $sessionService
+        );
     }
 
     public async function getRegisterController(): Awaitable<Controllable>
@@ -77,6 +85,15 @@ class DIC
         $connection = await $this->_getMysqlConnection();
 
         return new Article($connection);
+    }
+
+    private async function _getSessionService(?UserService $userService = null): Awaitable<SessionService>
+    {
+        if ($userService === null) {
+            $userService = await $this->_getUserService();
+        }
+
+        return new SessionService($this->getGlobalsUtil(), $userService);
     }
 
     private async function _getUserService(): Awaitable<UserService>

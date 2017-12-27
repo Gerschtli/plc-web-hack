@@ -26,10 +26,7 @@ abstract class BaseController
     /**
      * Builds the model passed to the viewable.
      */
-    protected async function _buildModel(): Awaitable<BaseModel>
-    {
-        return new BaseModel();
-    }
+    abstract protected function _buildModel(): Awaitable<BaseModel>;
 
     protected function _redirectTo(string $uri): void
     {

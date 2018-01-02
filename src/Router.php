@@ -55,10 +55,9 @@ class Router
         // if ($uri === '/admin/edit') {
         //     return await $dic->getEditController();
         // }
-        // TODO: /admin/delete
-        // if ($uri === '/admin/delete') {
-        //     return await $dic->getDeleteController();
-        // }
+        if ($uri === '/admin/delete') {
+            return await $dic->getDeleteController();
+        }
 
         throw new NotFound();
     }

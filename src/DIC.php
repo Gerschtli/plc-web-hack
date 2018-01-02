@@ -17,6 +17,7 @@ use Viewable;
 use PLC\Controller\Controllable;
 use PLC\Module\Admin\Controller as AdminController;
 use PLC\Module\Article\Controller as ArticleController;
+use PLC\Module\Delete\Controller as DeleteController;
 use PLC\Module\Error\Controller as ErrorController;
 use PLC\Module\Index\Controller as IndexController;
 use PLC\Module\Login\Controller as LoginController;
@@ -56,6 +57,14 @@ class DIC
         $articleService = await $this->_getArticleService();
 
         return new ArticleController(new ArticleView(), $this->getGlobalsUtil(), $articleService);
+    }
+
+    public async function getDeleteController(): Awaitable<Controllable>
+    {
+        $articleService = await $this->_getArticleService();
+        $sessionService = await $this->_getSessionService();
+
+        return new DeleteController($this->getGlobalsUtil(), $articleService, $sessionService);
     }
 
     public function getErrorController(Exception $exception): Controllable

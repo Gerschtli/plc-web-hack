@@ -27,6 +27,14 @@ class Article
     public function __construct(private AsyncMysqlConnection $_connection)
     {}
 
+    public async function deleteById(int $id): Awaitable<void>
+    {
+        await $this->_connection->queryf(
+            'DELETE FROM article WHERE article_id = %d',
+            $id
+        );
+    }
+
     public async function findAll(): Awaitable<Vector<ArticleModel>>
     {
         $result = await $this->_connection->queryf(

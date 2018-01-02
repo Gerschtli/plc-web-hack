@@ -49,7 +49,7 @@ class :plc:layout extends :x:element
 
         foreach ($list as $element) {
             $result->appendChild(
-                <a class="form-inline form-inline-sep" href="{$element['url']}">{$element['label']}</a>
+                <a class="form-inline form-inline-sep" href={$element['url']}>{$element['label']}</a>
             );
         }
 

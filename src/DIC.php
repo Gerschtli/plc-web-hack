@@ -7,6 +7,7 @@ use AsyncMysqlConnectionPool;
 use Exception;
 
 use AdminView;
+use ArticleView;
 use ErrorView;
 use IndexView;
 use LoginView;
@@ -15,6 +16,7 @@ use Viewable;
 
 use PLC\Controller\Controllable;
 use PLC\Module\Admin\Controller as AdminController;
+use PLC\Module\Article\Controller as ArticleController;
 use PLC\Module\Error\Controller as ErrorController;
 use PLC\Module\Index\Controller as IndexController;
 use PLC\Module\Login\Controller as LoginController;
@@ -47,6 +49,13 @@ class DIC
         $sessionService = await $this->_getSessionService();
 
         return new AdminController(new AdminView(), $articleService, $sessionService);
+    }
+
+    public async function getArticleController(): Awaitable<Controllable>
+    {
+        $articleService = await $this->_getArticleService();
+
+        return new ArticleController(new ArticleView(), $this->getGlobalsUtil(), $articleService);
     }
 
     public function getErrorController(Exception $exception): Controllable

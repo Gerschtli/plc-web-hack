@@ -136,6 +136,11 @@ class Article
         return $this->_createdAt;
     }
 
+    public function getCreatedAtFormatted(): ?string
+    {
+        return $this->_createdAt?->format('d.m.Y H:i');
+    }
+
     public function setCreatedAt(DateTime $createdAt): void
     {
         $this->_createdAt = $createdAt;

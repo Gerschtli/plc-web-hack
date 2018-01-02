@@ -39,10 +39,9 @@ class Router
         if ($uri === '/') {
             return await $dic->getIndexController();
         }
-        // TODO: /article
-        // if ($uri === '/article') {
-        //     return await $dic->getArticleController();
-        // }
+        if ($uri === '/article') {
+            return await $dic->getArticleController();
+        }
         if ($uri === '/register') {
             return await $dic->getRegisterController();
         }

@@ -48,6 +48,20 @@ class Article
         return $this->_mapList($result);
     }
 
+    public async function findById(int $id): Awaitable<?ArticleModel>
+    {
+        $result = await $this->_connection->queryf(
+            'SELECT %LC FROM article JOIN user ON author_id = user_id WHERE article_id = %d',
+            $this->_select,
+            $id
+        );
+
+        if ($result->numRows() == 0) {
+            return null;
+        }
+        return ArticleModel::create($result->mapRowsTyped()->at(0));
+    }
+
     private function _mapList(AsyncMysqlQueryResult $result): Vector<ArticleModel>
     {
         return $result->mapRowsTyped()->map($data ==> {

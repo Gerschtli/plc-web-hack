@@ -34,8 +34,10 @@ class AdminView extends BaseView<Model> implements Viewable
     private function _showArticle(Article $article): :xhp
     {
         return
-            <div>
-                <h3>{$article->getTitle()}</h3>
+            <div class="article-entry">
+                <p>{$article->getTitle()}</p>
+                <a href={"/admin/edit?id={$article->getId()}"}>bearbeiten</a> |
+                <a href={"/admin/delete?id={$article->getId()}"}>löschen</a>
             </div>;
     }
 }

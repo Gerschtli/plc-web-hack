@@ -11,23 +11,6 @@ use Viewable;
  */
 abstract class BaseController
 {
-    public function __construct(protected Viewable $_view)
-    {}
-
-    /**
-     * Renders the page.
-     */
-    public async function render(): Awaitable<void>
-    {
-        $model = await $this->_buildModel();
-        echo $this->_view->render($model);
-    }
-
-    /**
-     * Builds the model passed to the viewable.
-     */
-    abstract protected function _buildModel(): Awaitable<BaseModel>;
-
     protected function _redirectTo(string $uri): void
     {
         $this->_setResponseCode(ResponseCode::FOUND);

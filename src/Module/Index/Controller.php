@@ -4,14 +4,14 @@ namespace PLC\Module\Index;
 
 use PLC\Model\View\BaseModel;
 use PLC\Controller\Controllable;
-use PLC\Controller\BaseController;
+use PLC\Controller\ViewController;
 use PLC\Service\Article;
 use Viewable;
 
 /**
  * Renders index page of blog.
  */
-class Controller extends BaseController implements Controllable
+class Controller extends ViewController implements Controllable
 {
     public function __construct(Viewable $view, private Article $_article)
     {

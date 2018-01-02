@@ -2,7 +2,7 @@
 
 namespace PLC\Module\Login;
 
-use PLC\Controller\BaseController;
+use PLC\Controller\ViewController;
 use PLC\Controller\Controllable;
 use PLC\Controller\Extension\Form;
 use PLC\Model\View\BaseModel;
@@ -17,7 +17,7 @@ type LoginModel = shape('username' => string, 'password' => string);
 /**
  * Renders login page of blog.
  */
-class Controller extends BaseController implements Controllable
+class Controller extends ViewController implements Controllable
 {
     use Form<LoginModel>;
 

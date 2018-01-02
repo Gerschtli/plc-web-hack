@@ -3,7 +3,7 @@
 namespace PLC\Module\Error;
 
 use Exception;
-use PLC\Controller\BaseController;
+use PLC\Controller\ViewController;
 use PLC\Controller\Controllable;
 use PLC\Exception\Forbidden;
 use PLC\Exception\NotFound;
@@ -14,7 +14,7 @@ use Viewable;
 /**
  * Delegates render call straight to provided view.
  */
-class Controller extends BaseController implements Controllable
+class Controller extends ViewController implements Controllable
 {
     public function __construct(Viewable $view, private Exception $_exception)
     {

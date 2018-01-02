@@ -2,9 +2,9 @@
 
 namespace PLC;
 
+use Exception;
 use PLC\Controller\Controllable;
 use PLC\Exception\NotFound;
-use Exception;
 
 class Router
 {
@@ -34,7 +34,7 @@ class Router
     private static async function getControllable(DIC $dic): Awaitable<Controllable>
     {
         $server = $dic->getGlobalsUtil()->getServer();
-        $uri    = $server['REQUEST_URI'];
+        $uri    = $server['DOCUMENT_URI'];
 
         if ($uri === '/') {
             return await $dic->getIndexController();

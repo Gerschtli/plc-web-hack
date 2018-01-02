@@ -6,6 +6,16 @@ namespace PLC\Util;
 class Globals
 {
     /**
+     * Get global GET array as map.
+     *
+     * @return Map<string, string>  Typed GET array
+     */
+    public function getGet(): Map<string, string>
+    {
+        return new Map($_GET);
+    }
+
+    /**
      * Get global POST array as map.
      *
      * @return Map<string, string>  Typed POST array

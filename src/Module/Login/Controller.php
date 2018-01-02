@@ -30,8 +30,18 @@ class Controller extends BaseController implements Controllable
     <<__Override>>
     protected async function _buildModel(): Awaitable<BaseModel>
     {
-        $post = $this->_globals->getPost();
+        $isLoggedIn = await $this->_sessionService->isLoggedIn();
+        if ($isLoggedIn) {
+            $get = $this->_globals->getGet();
 
+            if ($get->containsKey('logout')) {
+                $this->_sessionService->logOutUser();
+            } else {
+                $this->_redirectTo('/admin');
+            }
+        }
+
+        $post   = $this->_globals->getPost();
         $errors = null;
 
         if ($post->containsKey('submit')) {

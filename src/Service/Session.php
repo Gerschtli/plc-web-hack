@@ -15,12 +15,6 @@ class Session
     )
     {}
 
-    public async function logInUser(string $username): Awaitable<void>
-    {
-        $user = await $this->_userService->findByUsername($username);
-        $this->_globals->setSession(self::KEY, $user);
-    }
-
     public async function getLoggedInUser(): Awaitable<?UserModel>
     {
         $session = $this->_globals->getSession();
@@ -32,5 +26,23 @@ class Session
         $value = $session[self::KEY];
 
         return $value instanceof UserModel ? $value : null;
+    }
+
+    public async function isLoggedIn(): Awaitable<bool>
+    {
+        $user = await $this->getLoggedInUser();
+
+        return $user !== null;
+    }
+
+    public async function logInUser(string $username): Awaitable<void>
+    {
+        $user = await $this->_userService->findByUsername($username);
+        $this->_globals->setSession(self::KEY, $user);
+    }
+
+    public function logOutUser(): void
+    {
+        $this->_globals->setSession(self::KEY, null);
     }
 }

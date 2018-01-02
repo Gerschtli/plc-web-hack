@@ -2,6 +2,7 @@
 
 use PLC\Model\View\Login;
 use PLC\Module\Login\Model;
+use PLC\Util\InputType;
 
 /**
  * View for login.
@@ -22,8 +23,8 @@ class LoginView extends BaseView<Model> implements Viewable
                 <h1>Login</h1>
                 <form action="/login" method="post">
                     {$this->_renderErrors($model->getErrors())}
-                    {$this->_renderFormRow('username', 'Username', false)}
-                    {$this->_renderFormRow('password', 'Passwort', true)}
+                    {$this->_renderFormRow('username', 'Username', InputType::ONE_LINE_TEXT)}
+                    {$this->_renderFormRow('password', 'Passwort', InputType::PASSWORD)}
                     {$this->_renderFormSubmit('Anmelden')}
                 </form>
             </plc:layout>;

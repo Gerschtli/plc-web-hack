@@ -2,6 +2,7 @@
 
 use PLC\Model\View\Register;
 use PLC\Module\Register\Model;
+use PLC\Util\InputType;
 
 /**
  * View for register.
@@ -30,10 +31,10 @@ class RegisterView extends BaseView<Model> implements Viewable
                             Registrierung erfolgreich. <a href="/login">Login</a>.
                         </x:frag>
                     )}
-                    {$this->_renderFormRow('username', 'Username', false, $user?->getUsername())}
-                    {$this->_renderFormRow('fullname', 'Voller Name', false, $user?->getFullname())}
-                    {$this->_renderFormRow('password', 'Passwort', true)}
-                    {$this->_renderFormRow('password_repeat', 'Wiederhole Passwort', true)}
+                    {$this->_renderFormRow('username', 'Username', InputType::ONE_LINE_TEXT, $user?->getUsername())}
+                    {$this->_renderFormRow('fullname', 'Voller Name', InputType::ONE_LINE_TEXT, $user?->getFullname())}
+                    {$this->_renderFormRow('password', 'Passwort', InputType::PASSWORD)}
+                    {$this->_renderFormRow('password_repeat', 'Wiederhole Passwort', InputType::PASSWORD)}
                     {$this->_renderFormSubmit('Registrieren')}
                 </form>
             </plc:layout>;

@@ -1,6 +1,7 @@
 <?hh // strict
 
 use PLC\Model\View\BaseModel;
+use PLC\Util\InputType;
 
 /**
  * Abstracts common methods of views.
@@ -26,14 +27,20 @@ trait FormExtension
         return <div class="error">{$result}</div>;
     }
 
-    private function _renderFormRow(string $name, string $label, bool $isPassword, ?Stringish $value = null): :xhp
+    private function _renderFormRow(string $name, string $label, InputType $inputType, ?Stringish $value = null): :xhp
     {
-        $type = $isPassword ? 'password' : 'text';
+        if ($inputType === InputType::MUTLI_LINE_TEXT) {
+            $input = <textarea>{$value}</textarea>;
+        } else {
+            $input = <input type={$inputType} value={$value} />;
+        }
+        $input->setAttribute('id', $name);
+        $input->setAttribute('name', $name);
 
         return
             <x:frag>
                 <label for={$name}>{$label}</label>
-                <input type={$type} id={$name} name={$name} value={$value} />
+                {$input}
             </x:frag>;
     }
 

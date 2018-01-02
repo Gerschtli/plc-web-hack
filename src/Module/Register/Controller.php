@@ -4,6 +4,7 @@ namespace PLC\Module\Register;
 
 use PLC\Controller\BaseController;
 use PLC\Controller\Controllable;
+use PLC\Controller\Extension\Form;
 use PLC\Model\User as UserModel;
 use PLC\Model\View\BaseModel;
 use PLC\Model\View\Register as RegisterModel;
@@ -17,6 +18,8 @@ use Viewable;
  */
 class Controller extends BaseController implements Controllable
 {
+    use Form<UserModel>;
+
     public function __construct(
         Viewable $view,
         private UserService $_userService,
@@ -30,28 +33,28 @@ class Controller extends BaseController implements Controllable
     <<__Override>>
     protected async function _buildModel(): Awaitable<BaseModel>
     {
-        $post = $this->_globals->getPost();
+        $formResult = await $this->_handleForm(
+            $this->_globals,
+            $this->_userValidator,
+            $post ==> {
+                $user = new UserModel();
+                $user->setUsername($post['username']);
+                $user->setFullname($post['fullname']);
+                $user->setPassword($post['password']);
+                $user->setPasswordRepeat($post['password_repeat']);
 
-        $user    = null;
-        $errors  = null;
-        $success = false;
-
-        if ($post->containsKey('submit')) {
-            $user = new UserModel();
-            $user->setUsername($post['username']);
-            $user->setFullname($post['fullname']);
-            $user->setPassword($post['password']);
-            $user->setPasswordRepeat($post['password_repeat']);
-
-            $errors = await $this->_userValidator->validate($user);
-
-            if ($errors->isEmpty()) {
-                $success = true;
-                await $this->_userService->save($user);
-                $user = null;
+                return $user;
+            },
+            async $model ==> {
+                await $this->_userService->save($model);
             }
+        );
+
+        $preFilledData = null;
+        if (!$formResult['success']) {
+            $preFilledData = $formResult['model'];
         }
 
-        return new Model($user, $errors, $success);
+        return new Model($preFilledData, $formResult['errors'], $formResult['success']);
     }
 }

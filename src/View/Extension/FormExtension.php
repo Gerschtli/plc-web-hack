@@ -9,9 +9,9 @@ trait FormExtension
 {
     require implements Viewable;
 
-    private function _renderErrors(?Vector<string> $errors): :xhp
+    private function _renderErrors(Vector<string> $errors): :xhp
     {
-        if ($errors === null || $errors->isEmpty()) {
+        if ($errors->isEmpty()) {
             return <x:frag />;
         }
 

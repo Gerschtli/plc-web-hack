@@ -12,12 +12,12 @@ class Model extends BaseModel
 {
     public function __construct(
         private ?User $_user,
-        private ?Vector<string> $_errors,
+        private Vector<string> $_errors,
         private bool $_isSuccess
     )
     {}
 
-    public function getErrors(): ?Vector<string>
+    public function getErrors(): Vector<string>
     {
         return $this->_errors;
     }

@@ -10,10 +10,10 @@ use PLC\Model\View\BaseModel;
  */
 class Model extends BaseModel
 {
-    public function __construct(private ?Vector<string> $_errors)
+    public function __construct(private Vector<string> $_errors)
     {}
 
-    public function getErrors(): ?Vector<string>
+    public function getErrors(): Vector<string>
     {
         return $this->_errors;
     }

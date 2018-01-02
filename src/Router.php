@@ -45,6 +45,9 @@ class Router
         if ($uri === '/login') {
             return await $dic->getLoginController();
         }
+        if ($uri === '/admin') {
+            return await $dic->getAdminController();
+        }
 
         throw new NotFound();
     }

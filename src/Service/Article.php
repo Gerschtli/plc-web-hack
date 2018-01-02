@@ -3,21 +3,53 @@
 namespace PLC\Service;
 
 use AsyncMysqlConnection;
+use AsyncMysqlQueryResult;
 use PLC\Model\Article as ArticleModel;
+use PLC\Model\User as UserModel;
 
 class Article
 {
+    private Vector<string> $_select = Vector {
+        'article_id',
+        'title',
+        'teaser',
+        'body',
+        'teaser_html',
+        'body_html',
+        'created_at',
+        'updated_at',
+        'user_id',
+        'fullname',
+        'username',
+        'password',
+    };
+
     public function __construct(private AsyncMysqlConnection $_connection)
     {}
 
     public async function findAll(): Awaitable<Vector<ArticleModel>>
     {
         $result = await $this->_connection->queryf(
-            'SELECT a.article_id, a.title, a.teaser, a.body, a.teaser_html, a.body_html, a.created_at, a.updated_at, '
-            . 'u.user_id, u.fullname, u.username, u.password '
-            . 'FROM article a JOIN user u ON a.author_id = u.user_id ORDER BY a.updated_at DESC'
+            'SELECT %LC FROM article JOIN user ON author_id = user_id ORDER BY updated_at DESC',
+            $this->_select
         );
 
+        return $this->_mapList($result);
+    }
+
+    public async function findAllByUser(UserModel $user): Awaitable<Vector<ArticleModel>>
+    {
+        $result = await $this->_connection->queryf(
+            'SELECT %LC FROM article JOIN user ON author_id = user_id WHERE user_id = %d ORDER BY updated_at DESC',
+            $this->_select,
+            $user->getId()
+        );
+
+        return $this->_mapList($result);
+    }
+
+    private function _mapList(AsyncMysqlQueryResult $result): Vector<ArticleModel>
+    {
         return $result->mapRowsTyped()->map($data ==> {
             return ArticleModel::create($data);
         });

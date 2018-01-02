@@ -39,6 +39,10 @@ class Router
         if ($uri === '/') {
             return await $dic->getIndexController();
         }
+        // TODO: /article
+        // if ($uri === '/article') {
+        //     return await $dic->getArticleController();
+        // }
         if ($uri === '/register') {
             return await $dic->getRegisterController();
         }
@@ -48,6 +52,14 @@ class Router
         if ($uri === '/admin') {
             return await $dic->getAdminController();
         }
+        // TODO: /admin/edit
+        // if ($uri === '/admin/edit') {
+        //     return await $dic->getEditController();
+        // }
+        // TODO: /admin/delete
+        // if ($uri === '/admin/delete') {
+        //     return await $dic->getDeleteController();
+        // }
 
         throw new NotFound();
     }

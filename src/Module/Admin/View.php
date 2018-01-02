@@ -16,7 +16,7 @@ class AdminView extends BaseView<Model> implements Viewable
     protected function _render(Model $model): :xhp
     {
         return
-            <plc:layout title="Startseite">
+            <plc:layout title="Startseite" admin-nav={true}>
                 <h1>Alle Artikel</h1>
                 {$this->_showArticles($model)}
             </plc:layout>;

@@ -35,6 +35,10 @@ aside {
     display: inline-block;
 }
 
+.form-inline-sep {
+    margin: 0 5px;
+}
+
 .article-head-inline {
     display: inline;
 }

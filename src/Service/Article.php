@@ -70,10 +70,47 @@ class Article
         return ArticleModel::create($result->mapRowsTyped()->at(0));
     }
 
+    public async function save(ArticleModel $article): Awaitable<void>
+    {
+        if ($article->getId() === null) {
+            await $this->_insert($article);
+        } else {
+            await $this->_update($article);
+        }
+    }
+
+    private async function _insert(ArticleModel $article): Awaitable<void>
+    {
+        await $this->_connection->queryf(
+            'INSERT INTO article (title, teaser, body, teaser_html, body_html, author_id, created_at, updated_at) '
+            . 'VALUES (%s, %s, %s, %s, %s, %d, NOW(), NOW())',
+            $article->getTitle(),
+            $article->getTeaser(),
+            $article->getBody(),
+            $article->getTeaserHtml(),
+            $article->getBodyHtml(),
+            $article->getAuthor()?->getId()
+        );
+    }
+
     private function _mapList(AsyncMysqlQueryResult $result): Vector<ArticleModel>
     {
         return $result->mapRowsTyped()->map($data ==> {
             return ArticleModel::create($data);
         });
+    }
+
+    private async function _update(ArticleModel $article): Awaitable<void>
+    {
+        await $this->_connection->queryf(
+            'UPDATE article SET title = %s, teaser = %s, body = %s, teaser_html = %s, body_html = %s, '
+            . 'updated_at = NOW() WHERE article_id = %d',
+            $article->getTitle(),
+            $article->getTeaser(),
+            $article->getBody(),
+            $article->getTeaserHtml(),
+            $article->getBodyHtml(),
+            $article->getId()
+        );
     }
 }

@@ -8,6 +8,7 @@ use Exception;
 
 use AdminView;
 use ArticleView;
+use EditView;
 use ErrorView;
 use IndexView;
 use LoginView;
@@ -18,6 +19,7 @@ use PLC\Controller\Controllable;
 use PLC\Module\Admin\Controller as AdminController;
 use PLC\Module\Article\Controller as ArticleController;
 use PLC\Module\Delete\Controller as DeleteController;
+use PLC\Module\Edit\Controller as EditController;
 use PLC\Module\Error\Controller as ErrorController;
 use PLC\Module\Index\Controller as IndexController;
 use PLC\Module\Login\Controller as LoginController;
@@ -26,6 +28,7 @@ use PLC\Service\Article;
 use PLC\Service\Session as SessionService;
 use PLC\Service\User as UserService;
 use PLC\Util\Globals;
+use PLC\Validator\Article as ArticleValidator;
 use PLC\Validator\Login as LoginValidator;
 use PLC\Validator\User as UserValidator;
 
@@ -65,6 +68,21 @@ class DIC
         $sessionService = await $this->_getSessionService();
 
         return new DeleteController($this->getGlobalsUtil(), $articleService, $sessionService);
+    }
+
+    public async function getEditController(): Awaitable<Controllable>
+    {
+        $articleService = await $this->_getArticleService();
+        $articleValidator = await $this->_getArticleValidator();
+        $sessionService = await $this->_getSessionService();
+
+        return new EditController(
+            new EditView(),
+            $this->getGlobalsUtil(),
+            $articleService,
+            $articleValidator,
+            $sessionService
+        );
     }
 
     public function getErrorController(Exception $exception): Controllable
@@ -131,6 +149,11 @@ class DIC
         return new UserService($connection);
     }
 
+
+    private async function _getArticleValidator(): Awaitable<ArticleValidator>
+    {
+        return new ArticleValidator();
+    }
 
     private async function _getLoginValidator(?UserService $userService = null): Awaitable<LoginValidator>
     {

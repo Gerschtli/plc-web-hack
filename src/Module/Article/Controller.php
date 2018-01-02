@@ -4,6 +4,7 @@ namespace PLC\Module\Article;
 
 use PLC\Controller\ViewController;
 use PLC\Controller\Controllable;
+use PLC\Controller\Extension\IdParam;
 use PLC\Model\View\BaseModel;
 use PLC\Service\Article;
 use PLC\Exception\NotFound;
@@ -15,6 +16,8 @@ use Viewable;
  */
 class Controller extends ViewController implements Controllable
 {
+    use IdParam;
+
     public function __construct(Viewable $view, private Globals $_globals, private Article $_article)
     {
         parent::__construct($view);
@@ -23,13 +26,7 @@ class Controller extends ViewController implements Controllable
     <<__Override>>
     protected async function _buildModel(): Awaitable<BaseModel>
     {
-        $get = $this->_globals->getGet();
-
-        if (!$get->containsKey('id')) {
-            throw new NotFound();
-        }
-
-        $id      = (int) $get['id'];
+        $id      = $this->_getIdParam($this->_globals);
         $article = await $this->_article->findById($id);
 
         if ($article === null) {

@@ -5,7 +5,7 @@ namespace PLC\Validator;
 use PLC\Service\User as UserService;
 use PLC\Model\User as UserModel;
 
-class User implements Validator<UserModel>
+class User implements Validatable<UserModel>
 {
     public function __construct(private UserService $_userService)
     {}

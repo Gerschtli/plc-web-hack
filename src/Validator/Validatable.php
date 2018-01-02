@@ -2,7 +2,7 @@
 
 namespace PLC\Validator;
 
-interface Validator<T>
+interface Validatable<T>
 {
     public function validate(T $object): Awaitable<Vector<string>>;
 }

@@ -4,7 +4,7 @@ namespace PLC\Controller\Extension;
 
 use PLC\Controller\Controllable;
 use PLC\Util\Globals;
-use PLC\Validator\Validator;
+use PLC\Validator\Validatable;
 
 trait Form<T>
 {
@@ -12,7 +12,7 @@ trait Form<T>
 
     private async function _handleForm(
         Globals $globals,
-        Validator<T> $validator,
+        Validatable<T> $validator,
         (function(Map<string, string>): T) $modelBuilder,
         (function(T): Awaitable<void>) $successCallback
     ): Awaitable<shape('errors' => Vector<string>, 'model' => ?T, 'success' => bool)>

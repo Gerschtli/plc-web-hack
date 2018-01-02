@@ -137,6 +137,11 @@ class Article
         return $this->_updatedAt;
     }
 
+    public function getUpdatedAtFormatted(): ?string
+    {
+        return $this->_updatedAt?->format('d.m.Y H:i');
+    }
+
     public function setUpdatedAt(DateTime $updatedAt): void
     {
         $this->_updatedAt = $updatedAt;

@@ -2,6 +2,7 @@
 
 use PLC\Model\Article;
 use PLC\Module\Index\Model;
+use PLC\XHP\HtmlUnsafeRenderable;
 
 /**
  * View for index page.
@@ -34,8 +35,20 @@ class IndexView extends BaseView<Model> implements Viewable
     private function _showArticle(Article $article): :xhp
     {
         return
-            <div>
-                <h3>{$article->getTitle()}</h3>
+            <div class="wrapper">
+                <h4 class="article-head-inline">{$article->getTitle()}</h4>
+                <aside>
+                    <h4 class="article-head-inline">Zuletzt aktualisiert: {$article->getUpdatedAtFormatted()}</h4>
+                </aside>
+                <br />
+                <div class="articlebody">{new HtmlUnsafeRenderable($article->getTeaserHtml())}</div>
+                <br />
+                <span class="author">{$article->getAuthor()?->getFullname()}</span>
+                <aside>
+                    <a class="form-inline" href={"/article?id={$article->getId()}"}>
+                        Zeig mir alles!
+                    </a>
+                </aside>
             </div>;
     }
 }

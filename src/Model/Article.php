@@ -4,6 +4,9 @@ namespace PLC\Model;
 
 use DateTime;
 
+/**
+ * Article model.
+ */
 class Article
 {
     private ?int $_id;
@@ -16,6 +19,12 @@ class Article
     private ?DateTime $_createdAt;
     private ?DateTime $_updatedAt;
 
+    /**
+     * Creates object by untyped map.
+     *
+     * @param  Map<string, mixed> $data  Untyped map with model data
+     * @return Article                   Valid object
+     */
     public static function create(Map<string, mixed> $data): Article
     {
         $id         = $data['article_id'];

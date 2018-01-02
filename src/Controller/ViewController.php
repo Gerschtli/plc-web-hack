@@ -3,11 +3,10 @@
 namespace PLC\Controller;
 
 use PLC\Model\View\BaseModel;
-use PLC\Util\ResponseCode;
 use Viewable;
 
 /**
- * Abstracts common methods of controllers.
+ * Abstracts common methods of view controllers.
  */
 abstract class ViewController extends BaseController
 {

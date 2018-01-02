@@ -2,6 +2,9 @@
 
 namespace PLC\Model;
 
+/**
+ * User model.
+ */
 class User
 {
     private ?int $_id;
@@ -10,6 +13,12 @@ class User
     private ?string $_password;
     private ?string $_passwordRepeat;
 
+    /**
+     * Creates object by untyped map.
+     *
+     * @param  Map<string, mixed> $data  Untyped map with model data
+     * @return User                      Valid object
+     */
     public static function create(Map<string, mixed> $data): User
     {
         $id       = $data['user_id'];

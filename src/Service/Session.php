@@ -10,8 +10,8 @@ class Session
     const string KEY = 'login';
 
     public function __construct(
-        private Globals $_globals,
-        private User $_userService
+        private User $_userService,
+        private Globals $_globals
     )
     {}
 

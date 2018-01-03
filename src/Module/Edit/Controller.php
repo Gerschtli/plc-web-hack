@@ -27,11 +27,11 @@ class Controller extends ViewController implements Controllable
 
     public function __construct(
         Viewable $view,
-        private Globals $_globals,
         private ArticleService $_articleService,
-        private ArticleValidator $_articleValidator,
+        private Markdown $_markdownService,
         private Session $_sessionService,
-        private Markdown $_markdownService
+        private ArticleValidator $_articleValidator,
+        private Globals $_globals
     )
     {
         parent::__construct($view);

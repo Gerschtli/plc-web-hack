@@ -20,7 +20,7 @@ class Controller extends BaseController implements Controllable
     use Authentication;
     use IdParam;
 
-    public function __construct(private Globals $_globals, private Article $_article, private Session $_sessionService)
+    public function __construct(private Article $_article, private Session $_sessionService, private Globals $_globals)
     {}
 
     public async function render(): Awaitable<void>

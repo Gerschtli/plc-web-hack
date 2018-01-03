@@ -18,7 +18,7 @@ class Controller extends ViewController implements Controllable
 {
     use IdParam;
 
-    public function __construct(Viewable $view, private Globals $_globals, private Article $_article)
+    public function __construct(Viewable $view, private Article $_article, private Globals $_globals)
     {
         parent::__construct($view);
     }

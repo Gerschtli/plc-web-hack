@@ -22,8 +22,8 @@ class Controller extends ViewController implements Controllable
     public function __construct(
         Viewable $view,
         private UserService $_userService,
-        private Globals $_globals,
-        private UserValidator $_userValidator
+        private UserValidator $_userValidator,
+        private Globals $_globals
     )
     {
         parent::__construct($view);

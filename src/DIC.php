@@ -60,7 +60,7 @@ class DIC
     {
         $articleService = await $this->_getArticleService();
 
-        return new ArticleController(new ArticleView(), $this->getGlobalsUtil(), $articleService);
+        return new ArticleController(new ArticleView(), $articleService, $this->getGlobalsUtil());
     }
 
     public async function getDeleteController(): Awaitable<Controllable>
@@ -68,7 +68,7 @@ class DIC
         $articleService = await $this->_getArticleService();
         $sessionService = await $this->_getSessionService();
 
-        return new DeleteController($this->getGlobalsUtil(), $articleService, $sessionService);
+        return new DeleteController($articleService, $sessionService, $this->getGlobalsUtil());
     }
 
     public async function getEditController(): Awaitable<Controllable>
@@ -78,11 +78,11 @@ class DIC
 
         return new EditController(
             new EditView(),
-            $this->getGlobalsUtil(),
             $articleService,
-            $this->_getArticleValidator(),
+            $this->_getMarkdownService(),
             $sessionService,
-            $this->_getMarkdownService()
+            $this->_getArticleValidator(),
+            $this->getGlobalsUtil()
         );
     }
 
@@ -106,10 +106,10 @@ class DIC
 
         return new LoginController(
             new LoginView(),
+            $sessionService,
             $userService,
-            $this->getGlobalsUtil(),
             $loginValidator,
-            $sessionService
+            $this->getGlobalsUtil()
         );
     }
 
@@ -121,8 +121,8 @@ class DIC
         return new RegisterController(
             new RegisterView(),
             $userService,
-            $this->getGlobalsUtil(),
-            $userValidator
+            $userValidator,
+            $this->getGlobalsUtil()
         );
     }
 
@@ -145,7 +145,7 @@ class DIC
             $userService = await $this->_getUserService();
         }
 
-        return new SessionService($this->getGlobalsUtil(), $userService);
+        return new SessionService($userService, $this->getGlobalsUtil());
     }
 
     private async function _getUserService(): Awaitable<UserService>

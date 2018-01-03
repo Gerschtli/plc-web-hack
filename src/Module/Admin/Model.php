@@ -6,7 +6,7 @@ use PLC\Model\Article;
 use PLC\Model\View\BaseModel;
 
 /**
- * View model for index controller.
+ * View model for admin controller.
  */
 class Model extends BaseModel
 {

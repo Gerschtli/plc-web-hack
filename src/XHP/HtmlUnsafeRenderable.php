@@ -4,6 +4,9 @@ namespace PLC\XHP;
 
 use XHPUnsafeRenderable;
 
+/**
+ * Implementation of XHPUnsafeRenderable to render html strings.
+ */
 class HtmlUnsafeRenderable implements XHPUnsafeRenderable
 {
     public function __construct(

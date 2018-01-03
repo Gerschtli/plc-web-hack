@@ -32,6 +32,7 @@ abstract class BaseView<T as BaseModel>
     private function _castModel(BaseModel $model): T
     {
         invariant($model instanceof $this->_cls, 'Not the right View Model');
+
         return $model;
     }
 

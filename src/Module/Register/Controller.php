@@ -2,19 +2,18 @@
 
 namespace PLC\Module\Register;
 
-use PLC\Controller\ViewController;
 use PLC\Controller\Controllable;
 use PLC\Controller\Extension\Form;
+use PLC\Controller\ViewController;
 use PLC\Model\User as UserModel;
 use PLC\Model\View\BaseModel;
-use PLC\Model\View\Register as RegisterModel;
 use PLC\Service\User as UserService;
 use PLC\Util\Globals;
 use PLC\Validator\User as UserValidator;
 use Viewable;
 
 /**
- * Renders register page of blog.
+ * Renders register form.
  */
 class Controller extends ViewController implements Controllable
 {
@@ -46,7 +45,7 @@ class Controller extends ViewController implements Controllable
                 return $user;
             },
             async $model ==> {
-                await $this->_userService->save($model);
+                await $this->_userService->insert($model);
             }
         );
 

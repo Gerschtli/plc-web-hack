@@ -2,17 +2,16 @@
 
 namespace PLC\Module\Admin;
 
-use PLC\Controller\ViewController;
 use PLC\Controller\Controllable;
 use PLC\Controller\Extension\Authentication;
-use PLC\Exception\Forbidden;
+use PLC\Controller\ViewController;
 use PLC\Model\View\BaseModel;
 use PLC\Service\Article;
 use PLC\Service\Session;
 use Viewable;
 
 /**
- * Renders admin page of blog.
+ * Shows all articles of logged in user.
  */
 class Controller extends ViewController implements Controllable
 {

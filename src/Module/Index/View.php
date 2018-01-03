@@ -25,10 +25,11 @@ class IndexView extends BaseView<Model> implements Viewable
 
     private function _showArticles(Model $model): :xhp
     {
-        $xhp = <div></div>;
+        $xhp = <x:frag />;
         foreach ($model->getArticles() as $article) {
             $xhp->appendChild($this->_showArticle($article));
         }
+
         return $xhp;
     }
 

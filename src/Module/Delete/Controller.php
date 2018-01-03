@@ -8,13 +8,12 @@ use PLC\Controller\Extension\Authentication;
 use PLC\Controller\Extension\IdParam;
 use PLC\Exception\Forbidden;
 use PLC\Exception\NotFound;
-use PLC\Model\View\BaseModel;
 use PLC\Service\Article;
 use PLC\Service\Session;
 use PLC\Util\Globals;
 
 /**
- * Renders admin page of blog.
+ * Delete article if logged in user is author.
  */
 class Controller extends BaseController implements Controllable
 {

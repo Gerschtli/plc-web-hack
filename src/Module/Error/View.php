@@ -3,7 +3,7 @@
 use PLC\Module\Error\Model;
 
 /**
- * View for index page.
+ * View for error page.
  */
 class ErrorView extends BaseView<Model> implements Viewable
 {

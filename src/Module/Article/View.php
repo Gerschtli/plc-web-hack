@@ -1,11 +1,10 @@
 <?hh // strict
 
-use PLC\Model\Article;
 use PLC\Module\Article\Model;
 use PLC\XHP\HtmlUnsafeRenderable;
 
 /**
- * View for admin page.
+ * View for article page.
  */
 class ArticleView extends BaseView<Model> implements Viewable
 {

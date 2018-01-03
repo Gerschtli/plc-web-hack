@@ -29,7 +29,7 @@ class Router
     /**
      * Get Controllable object by method and uri.
      *
-     * @return Controllable    Controllable instance
+     * @return Controllable  Controllable instance
      */
     private static async function getControllable(DIC $dic): Awaitable<Controllable>
     {

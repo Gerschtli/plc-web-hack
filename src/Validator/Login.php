@@ -6,6 +6,9 @@ use PLC\Service\User as UserService;
 
 type LoginModel = shape('username' => string, 'password' => string);
 
+/**
+ * Validates login form data.
+ */
 class Login implements Validatable<LoginModel>
 {
     public function __construct(private UserService $_userService)

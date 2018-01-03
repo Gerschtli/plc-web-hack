@@ -6,7 +6,7 @@ use PLC\Model\User;
 use PLC\Model\View\BaseModel;
 
 /**
- * View model for register controller.
+ * View model for login controller.
  */
 class Model extends BaseModel
 {

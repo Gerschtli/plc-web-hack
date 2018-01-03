@@ -1,11 +1,10 @@
 <?hh // strict
 
-use PLC\Model\View\Login;
 use PLC\Module\Login\Model;
 use PLC\Util\InputType;
 
 /**
- * View for login.
+ * View for login page.
  */
 class LoginView extends BaseView<Model> implements Viewable
 {

@@ -5,6 +5,9 @@ namespace PLC\Validator;
 use PLC\Model\Article as ArticleModel;
 use PLC\Service\Article as ArticleService;
 
+/**
+ * Validates article form data.
+ */
 class Article implements Validatable<ArticleModel>
 {
     public async function validate(ArticleModel $article): Awaitable<Vector<string>>

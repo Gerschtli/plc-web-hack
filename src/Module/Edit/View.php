@@ -1,11 +1,10 @@
 <?hh // strict
 
-use PLC\Model\Article;
 use PLC\Module\Edit\Model;
 use PLC\Util\InputType;
 
 /**
- * View for admin page.
+ * View for edit page.
  */
 class EditView extends BaseView<Model> implements Viewable
 {

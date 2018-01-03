@@ -11,6 +11,12 @@ class User
     public function __construct(private AsyncMysqlConnection $_connection)
     {}
 
+    /**
+     * Find user by id.
+     *
+     * @param  int    $id  ID
+     * @return ?UserModel  User object
+     */
     public async function findById(int $id): Awaitable<?UserModel>
     {
         $result = await $this->_connection->queryf(
@@ -21,6 +27,12 @@ class User
         return $this->_firstRowToModel($result);
     }
 
+    /**
+     * Find user by username.
+     *
+     * @param  string $username  Username
+     * @return ?UserModel        User object
+     */
     public async function findByUsername(string $username): Awaitable<?UserModel>
     {
         $result = await $this->_connection->queryf(
@@ -31,41 +43,33 @@ class User
         return $this->_firstRowToModel($result);
     }
 
-    public async function save(UserModel $user): Awaitable<void>
-    {
-        if ($user->getId() === null) {
-            await $this->_insert($user);
-        } else {
-            await $this->_update($user);
-        }
-    }
-
+    /**
+     * Map untyped result list to one user model instance.
+     *
+     * @param  AsyncMysqlQueryResult $result  Query result
+     * @return ?UserModel                     User
+     */
     private function _firstRowToModel(AsyncMysqlQueryResult $result): ?UserModel
     {
-        if ($result->numRows() == 0) {
+        if ($result->numRows() === 0) {
             return null;
         }
+
         return UserModel::create($result->mapRowsTyped()->at(0));
     }
 
-    private async function _insert(UserModel $user): Awaitable<void>
+    /**
+     * Insert new user.
+     *
+     * @param UserModel $user  User
+     */
+    public async function insert(UserModel $user): Awaitable<void>
     {
         await $this->_connection->queryf(
             'INSERT INTO user (fullname, username, password) VALUES (%s, %s, %s)',
             $user->getFullname(),
             $user->getUsername(),
             $user->getPassword()
-        );
-    }
-
-    private async function _update(UserModel $user): Awaitable<void>
-    {
-        await $this->_connection->queryf(
-            'UPDATE user SET fullname = %s, username = %s, password = %s WHERE user_id = %d',
-            $user->getFullname(),
-            $user->getUsername(),
-            $user->getPassword(),
-            $user->getId()
         );
     }
 }

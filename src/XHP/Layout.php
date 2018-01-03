@@ -3,7 +3,7 @@
 use XHPRoot;
 
 /**
- * Defines layout element with common head elements and title attribute
+ * Defines layout element with common head elements and title attribute.
  */
 class :plc:layout extends :x:element
 {

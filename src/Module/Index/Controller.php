@@ -2,14 +2,14 @@
 
 namespace PLC\Module\Index;
 
-use PLC\Model\View\BaseModel;
 use PLC\Controller\Controllable;
 use PLC\Controller\ViewController;
+use PLC\Model\View\BaseModel;
 use PLC\Service\Article;
 use Viewable;
 
 /**
- * Renders index page of blog.
+ * Shows teasers to all articles.
  */
 class Controller extends ViewController implements Controllable
 {

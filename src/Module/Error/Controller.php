@@ -3,8 +3,8 @@
 namespace PLC\Module\Error;
 
 use Exception;
-use PLC\Controller\ViewController;
 use PLC\Controller\Controllable;
+use PLC\Controller\ViewController;
 use PLC\Exception\Forbidden;
 use PLC\Exception\NotFound;
 use PLC\Model\View\BaseModel;
@@ -12,7 +12,7 @@ use PLC\Util\ResponseCode;
 use Viewable;
 
 /**
- * Delegates render call straight to provided view.
+ * Renders error page based on thrown excpetion.
  */
 class Controller extends ViewController implements Controllable
 {

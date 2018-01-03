@@ -2,9 +2,12 @@
 
 namespace PLC\Validator;
 
-use PLC\Service\User as UserService;
 use PLC\Model\User as UserModel;
+use PLC\Service\User as UserService;
 
+/**
+ * Validates user form data.
+ */
 class User implements Validatable<UserModel>
 {
     public function __construct(private UserService $_userService)

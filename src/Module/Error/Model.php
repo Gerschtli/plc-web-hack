@@ -2,11 +2,10 @@
 
 namespace PLC\Module\Error;
 
-use PLC\Model\Article;
 use PLC\Model\View\BaseModel;
 
 /**
- * View model for index controller.
+ * View model for error controller.
  */
 class Model extends BaseModel
 {

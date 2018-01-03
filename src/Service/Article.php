@@ -9,6 +9,11 @@ use PLC\Model\User as UserModel;
 
 class Article
 {
+    /**
+     * All fields needed for complete article object.
+     *
+     * @var Vector<string>
+     */
     private Vector<string> $_select = Vector {
         'article_id',
         'title',
@@ -27,6 +32,11 @@ class Article
     public function __construct(private AsyncMysqlConnection $_connection)
     {}
 
+    /**
+     * Delete article by id.
+     *
+     * @param int $id  ID
+     */
     public async function deleteById(int $id): Awaitable<void>
     {
         await $this->_connection->queryf(
@@ -35,6 +45,11 @@ class Article
         );
     }
 
+    /**
+     * Find all articles sorted by updatedAt.
+     *
+     * @return Vector<ArticleModel>  List of articles
+     */
     public async function findAll(): Awaitable<Vector<ArticleModel>>
     {
         $result = await $this->_connection->queryf(
@@ -45,6 +60,12 @@ class Article
         return $this->_mapList($result);
     }
 
+    /**
+     * Find all articles of $user sorted by updatedAt.
+     *
+     * @param  UserModel $user       Owner of articles
+     * @return Vector<ArticleModel>  List of articles
+     */
     public async function findAllByUser(UserModel $user): Awaitable<Vector<ArticleModel>>
     {
         $result = await $this->_connection->queryf(
@@ -56,6 +77,12 @@ class Article
         return $this->_mapList($result);
     }
 
+    /**
+     * Find article by id.
+     *
+     * @param  int $id        ID
+     * @return ?ArticleModel  Article or null
+     */
     public async function findById(int $id): Awaitable<?ArticleModel>
     {
         $result = await $this->_connection->queryf(
@@ -70,6 +97,11 @@ class Article
         return ArticleModel::create($result->mapRowsTyped()->at(0));
     }
 
+    /**
+     * Persist article object.
+     *
+     * @param ArticleModel $article  Article
+     */
     public async function save(ArticleModel $article): Awaitable<void>
     {
         if ($article->getId() === null) {
@@ -79,6 +111,11 @@ class Article
         }
     }
 
+    /**
+     * Insert new article.
+     *
+     * @param  ArticleModel $article  Article
+     */
     private async function _insert(ArticleModel $article): Awaitable<void>
     {
         await $this->_connection->queryf(
@@ -93,6 +130,12 @@ class Article
         );
     }
 
+    /**
+     * Map list of untyped articles to article models.
+     *
+     * @param  AsyncMysqlQueryResult $result  Query result
+     * @return Vector<ArticleModel>           List of articles models
+     */
     private function _mapList(AsyncMysqlQueryResult $result): Vector<ArticleModel>
     {
         return $result->mapRowsTyped()->map($data ==> {
@@ -100,6 +143,11 @@ class Article
         });
     }
 
+    /**
+     * Update existing article.
+     *
+     * @param  ArticleModel $article  Article
+     */
     private async function _update(ArticleModel $article): Awaitable<void>
     {
         await $this->_connection->queryf(

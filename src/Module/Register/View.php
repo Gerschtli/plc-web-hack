@@ -1,11 +1,10 @@
 <?hh // strict
 
-use PLC\Model\View\Register;
 use PLC\Module\Register\Model;
 use PLC\Util\InputType;
 
 /**
- * View for register.
+ * View for register page.
  */
 class RegisterView extends BaseView<Model> implements Viewable
 {

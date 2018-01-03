@@ -4,7 +4,7 @@ use PLC\Model\View\BaseModel;
 use PLC\Util\InputType;
 
 /**
- * Abstracts common methods of views.
+ * Provides util methods for form views.
  */
 trait FormExtension
 {

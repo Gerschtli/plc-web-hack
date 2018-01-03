@@ -17,7 +17,7 @@ use PLC\Validator\Article as ArticleValidator;
 use Viewable;
 
 /**
- * Renders admin page of blog.
+ * Edit or create articles and converts markdown texts to html.
  */
 class Controller extends ViewController implements Controllable
 {

@@ -2,17 +2,17 @@
 
 namespace PLC\Module\Article;
 
-use PLC\Controller\ViewController;
 use PLC\Controller\Controllable;
 use PLC\Controller\Extension\IdParam;
+use PLC\Controller\ViewController;
+use PLC\Exception\NotFound;
 use PLC\Model\View\BaseModel;
 use PLC\Service\Article;
-use PLC\Exception\NotFound;
 use PLC\Util\Globals;
 use Viewable;
 
 /**
- * Renders admin page of blog.
+ * Shows full requested article.
  */
 class Controller extends ViewController implements Controllable
 {

@@ -10,6 +10,7 @@ use PLC\Controller\ViewController;
 use PLC\Model\Article as ArticleModel;
 use PLC\Model\View\BaseModel;
 use PLC\Service\Article as ArticleService;
+use PLC\Service\Markdown;
 use PLC\Service\Session;
 use PLC\Util\Globals;
 use PLC\Validator\Article as ArticleValidator;
@@ -29,7 +30,8 @@ class Controller extends ViewController implements Controllable
         private Globals $_globals,
         private ArticleService $_articleService,
         private ArticleValidator $_articleValidator,
-        private Session $_sessionService
+        private Session $_sessionService,
+        private Markdown $_markdownService
     )
     {
         parent::__construct($view);
@@ -44,7 +46,7 @@ class Controller extends ViewController implements Controllable
         $formResult = await $this->_handleForm(
             $this->_globals,
             $this->_articleValidator,
-            $post ==> {
+            async $post ==> {
                 $article = new ArticleModel();
                 if ($id !== null) {
                     $article->setId($id);
@@ -53,9 +55,15 @@ class Controller extends ViewController implements Controllable
                 $article->setTeaser($post['teaser']);
                 $article->setBody($post['body']);
                 $article->setAuthor($user);
-                // TODO: fix
-                $article->setTeaserHtml($post['teaser']);
-                $article->setBodyHtml($post['body']);
+
+                $teaser = await $this->_markdownService->convertToHtml($post['teaser']);
+                $body   = await $this->_markdownService->convertToHtml($post['body']);
+                if ($teaser !== null) {
+                    $article->setTeaserHtml($teaser);
+                }
+                if ($body !== null) {
+                    $article->setBodyHtml($body);
+                }
 
                 return $article;
             },

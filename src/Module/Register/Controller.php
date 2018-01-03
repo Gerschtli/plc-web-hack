@@ -36,7 +36,7 @@ class Controller extends ViewController implements Controllable
         $formResult = await $this->_handleForm(
             $this->_globals,
             $this->_userValidator,
-            $post ==> {
+            async $post ==> {
                 $user = new UserModel();
                 $user->setUsername($post['username']);
                 $user->setFullname($post['fullname']);

@@ -27,7 +27,7 @@ trait Form<T>
     private async function _handleForm(
         Globals $globals,
         Validatable<T> $validator,
-        (function(Map<string, string>): T) $modelBuilder,
+        (function(Map<string, string>): Awaitable<T>) $modelBuilder,
         (function(T): Awaitable<void>) $successCallback
     ): Awaitable<FormResult<T>>
     {
@@ -37,7 +37,7 @@ trait Form<T>
             return shape('errors' => Vector {}, 'model' => null, 'success' => false);
         }
 
-        $model  = $modelBuilder($post);
+        $model  = await $modelBuilder($post);
         $errors = await $validator->validate($model);
 
         if ($errors->isEmpty()) {

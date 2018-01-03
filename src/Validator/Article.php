@@ -20,6 +20,9 @@ class Article implements Validatable<ArticleModel>
         if ($this->_isEmpty($article->getBody())) {
             $errors->add('Body darf nicht leer sein');
         }
+        if ($this->_isEmpty($article->getBodyHtml()) || $this->_isEmpty($article->getTeaserHtml())) {
+            $errors->add('Es ist ein Fehler bei der Konvertierung aufgetreren');
+        }
 
         return $errors;
     }

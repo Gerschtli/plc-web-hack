@@ -24,7 +24,8 @@ use PLC\Module\Error\Controller as ErrorController;
 use PLC\Module\Index\Controller as IndexController;
 use PLC\Module\Login\Controller as LoginController;
 use PLC\Module\Register\Controller as RegisterController;
-use PLC\Service\Article;
+use PLC\Service\Article as ArticleService;
+use PLC\Service\Markdown as MarkdownService;
 use PLC\Service\Session as SessionService;
 use PLC\Service\User as UserService;
 use PLC\Util\Globals;
@@ -73,15 +74,15 @@ class DIC
     public async function getEditController(): Awaitable<Controllable>
     {
         $articleService = await $this->_getArticleService();
-        $articleValidator = await $this->_getArticleValidator();
         $sessionService = await $this->_getSessionService();
 
         return new EditController(
             new EditView(),
             $this->getGlobalsUtil(),
             $articleService,
-            $articleValidator,
-            $sessionService
+            $this->_getArticleValidator(),
+            $sessionService,
+            $this->_getMarkdownService()
         );
     }
 
@@ -126,11 +127,16 @@ class DIC
     }
 
 
-    private async function _getArticleService(): Awaitable<Article>
+    private async function _getArticleService(): Awaitable<ArticleService>
     {
         $connection = await $this->_getMysqlConnection();
 
-        return new Article($connection);
+        return new ArticleService($connection);
+    }
+
+    private function _getMarkdownService(): MarkdownService
+    {
+        return new MarkdownService();
     }
 
     private async function _getSessionService(?UserService $userService = null): Awaitable<SessionService>
@@ -150,7 +156,7 @@ class DIC
     }
 
 
-    private async function _getArticleValidator(): Awaitable<ArticleValidator>
+    private function _getArticleValidator(): ArticleValidator
     {
         return new ArticleValidator();
     }

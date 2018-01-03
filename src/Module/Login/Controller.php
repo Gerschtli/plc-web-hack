@@ -49,7 +49,7 @@ class Controller extends ViewController implements Controllable
         $formResult = await $this->_handleForm(
             $this->_globals,
             $this->_loginValidator,
-            $post ==> shape(
+            async $post ==> shape(
                 'username' => $post['username'],
                 'password' => $post['password'],
             ),

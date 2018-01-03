@@ -18,6 +18,7 @@ class :plc:layout extends :x:element
                 <html>
                     <head>
                         <title>{$this->:title} - Blog</title>
+                        <meta charset="utf-8" />
                         <link rel="stylesheet" href="/css/main.css" />
                     </head>
                     <body>

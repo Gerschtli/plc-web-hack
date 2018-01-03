@@ -18,6 +18,9 @@ class AdminView extends BaseView<Model> implements Viewable
         return
             <plc:layout title="Startseite" admin-nav={true}>
                 <h1>Alle Artikel</h1>
+                <nav>
+                    <a href="/admin/edit">Artikel erstellen</a>
+                </nav>
                 {$this->_showArticles($model)}
             </plc:layout>;
     }

@@ -118,7 +118,7 @@ class Article
      */
     private async function _insert(ArticleModel $article): Awaitable<void>
     {
-        await $this->_connection->queryf(
+        $result = await $this->_connection->queryf(
             'INSERT INTO article (title, teaser, body, teaser_html, body_html, author_id, created_at, updated_at) '
             . 'VALUES (%s, %s, %s, %s, %s, %d, NOW(), NOW())',
             $article->getTitle(),
@@ -128,6 +128,8 @@ class Article
             $article->getBodyHtml(),
             $article->getAuthor()?->getId()
         );
+
+        $article->setId($result->lastInsertId());
     }
 
     /**

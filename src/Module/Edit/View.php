@@ -19,10 +19,15 @@ class EditView extends BaseView<Model> implements Viewable
     {
         $article = $model->getArticle();
 
+        $action = '/admin/edit';
+        if ($article?->getId() !== null) {
+            $action .= "?id={$article?->getId()}";
+        }
+
         return
             <plc:layout title="Bearbeite Artikel" admin-nav={true}>
                 <h1>Bearbeite Artikel</h1>
-                <form method="post">
+                <form action={$action} method="post">
                     {$this->_renderErrors($model->getErrors())}
                     {$this->_renderSuccess(
                         $model->isSuccess(),

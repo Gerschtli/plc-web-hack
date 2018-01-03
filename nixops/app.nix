@@ -70,6 +70,7 @@ rec {
           eject # for dmesg
           gnutar
           gzip
+          pandoc
         ];
         serviceConfig = {
           ExecStart = ''

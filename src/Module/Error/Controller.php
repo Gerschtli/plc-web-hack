@@ -35,6 +35,6 @@ class Controller extends ViewController implements Controllable
             $message = 'Not Found';
         }
 
-        return new Model($code, $message);
+        return new Model($this->_exception, $code, $message);
     }
 }

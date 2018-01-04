@@ -17,6 +17,7 @@ class ErrorView extends BaseView<Model> implements Viewable
         return
             <plc:layout title={(string) $model->getCode()}>
                 <h1>{$model->getCode()} - {$model->getMessage()}</h1>
+                <pre>{print_r($model->getException(), true)}</pre>
             </plc:layout>;
     }
 }

@@ -1,6 +1,7 @@
 let
   app = import ./app.nix;
   appDir = "/var/www/plc-hack";
+  device = "plc-hack";
 in
 
 {
@@ -17,12 +18,7 @@ in
             memorySize = 1024;
             headless = true;
 
-            sharedFolders = {
-              plc-hack = {
-                hostPath = "/home/tobias/projects/plc-web-hack";
-                readOnly = false;
-              };
-            };
+            sharedFolders.${device}.hostPath = toString ./..;
           };
         };
 
@@ -33,7 +29,7 @@ in
         };
 
         fileSystems.${appDir} = {
-          device = "plc-hack";
+          inherit device;
           fsType = "vboxsf";
           options = map (key: key + "=" + (toString config.ids.uids.nginx)) [ "uid" "gid" ];
         };

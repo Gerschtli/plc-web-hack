@@ -22,7 +22,7 @@ class Router
             $controllable = await self::getControllable($dic);
             await $controllable->render();
         } catch (Exception $exception) {
-            await $dic->getErrorController($exception)->render();
+            await $dic->getModule()->getErrorController($exception)->render();
         }
     }
 
@@ -33,29 +33,31 @@ class Router
      */
     private static async function getControllable(DIC $dic): Awaitable<Controllable>
     {
-        $server = $dic->getGlobalsUtil()->getServer();
+        $server = $dic->getUtil()->getGlobals()->getServer();
         $uri    = $server['DOCUMENT_URI'];
 
+        $moduleDIC = $dic->getModule();
+
         if ($uri === '/') {
-            return await $dic->getIndexController();
+            return await $moduleDIC->getIndexController();
         }
         if ($uri === '/article') {
-            return await $dic->getArticleController();
+            return await $moduleDIC->getArticleController();
         }
         if ($uri === '/register') {
-            return await $dic->getRegisterController();
+            return await $moduleDIC->getRegisterController();
         }
         if ($uri === '/login') {
-            return await $dic->getLoginController();
+            return await $moduleDIC->getLoginController();
         }
         if ($uri === '/admin') {
-            return await $dic->getAdminController();
+            return await $moduleDIC->getAdminController();
         }
         if ($uri === '/admin/edit') {
-            return await $dic->getEditController();
+            return await $moduleDIC->getEditController();
         }
         if ($uri === '/admin/delete') {
-            return await $dic->getDeleteController();
+            return await $moduleDIC->getDeleteController();
         }
 
         throw new NotFound();

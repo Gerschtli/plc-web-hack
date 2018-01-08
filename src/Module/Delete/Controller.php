@@ -10,6 +10,7 @@ use PLC\Exception\Forbidden;
 use PLC\Exception\NotFound;
 use PLC\Service\Article;
 use PLC\Service\Session;
+use PLC\Util\Asio;
 use PLC\Util\Globals;
 
 /**
@@ -20,14 +21,22 @@ class Controller extends BaseController implements Controllable
     use Authentication;
     use IdParam;
 
-    public function __construct(private Article $_article, private Session $_sessionService, private Globals $_globals)
+    public function __construct(
+        private Article $_article,
+        private Session $_sessionService,
+        private Asio $_asio,
+        private Globals $_globals
+    )
     {}
 
     public async function render(): Awaitable<void>
     {
-        $user    = await $this->_getLoggedInUser($this->_sessionService);
-        $id      = $this->_getIdParam($this->_globals);
-        $article = await $this->_article->findById($id);
+        $id = $this->_getIdParam($this->_globals);
+
+        list($user, $article) = await $this->_asio->batch(
+            $this->_getLoggedInUser($this->_sessionService),
+            $this->_article->findById($id)
+        );
 
         if ($article === null) {
             throw new NotFound();

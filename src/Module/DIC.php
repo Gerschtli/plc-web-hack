@@ -42,8 +42,12 @@ class DIC
 
     public async function getAdminController(): Awaitable<Controllable>
     {
-        $articleService = await $this->_serviceDIC->getArticle();
-        $sessionService = await $this->_serviceDIC->getSession();
+        $asioUtil = $this->_utilDIC->getAsio();
+
+        list($articleService, $sessionService) = await $asioUtil->batch(
+            $this->_serviceDIC->getArticle(),
+            $this->_serviceDIC->getSession()
+        );
 
         return new AdminController(new AdminView(), $articleService, $sessionService);
     }
@@ -57,16 +61,29 @@ class DIC
 
     public async function getDeleteController(): Awaitable<Controllable>
     {
-        $articleService = await $this->_serviceDIC->getArticle();
-        $sessionService = await $this->_serviceDIC->getSession();
+        $asioUtil = $this->_utilDIC->getAsio();
 
-        return new DeleteController($articleService, $sessionService, $this->_utilDIC->getGlobals());
+        list($articleService, $sessionService) = await $asioUtil->batch(
+            $this->_serviceDIC->getArticle(),
+            $this->_serviceDIC->getSession()
+        );
+
+        return new DeleteController(
+            $articleService,
+            $sessionService,
+            $asioUtil,
+            $this->_utilDIC->getGlobals()
+        );
     }
 
     public async function getEditController(): Awaitable<Controllable>
     {
-        $articleService = await $this->_serviceDIC->getArticle();
-        $sessionService = await $this->_serviceDIC->getSession();
+        $asioUtil = $this->_utilDIC->getAsio();
+
+        list($articleService, $sessionService) = await $asioUtil->batch(
+            $this->_serviceDIC->getArticle(),
+            $this->_serviceDIC->getSession()
+        );
 
         return new EditController(
             new EditView(),
@@ -74,6 +91,7 @@ class DIC
             $this->_serviceDIC->getMarkdown(),
             $sessionService,
             $this->_validatorDIC->getArticle(),
+            $asioUtil,
             $this->_utilDIC->getGlobals()
         );
     }
@@ -92,9 +110,13 @@ class DIC
 
     public async function getLoginController(): Awaitable<Controllable>
     {
-        $userService    = await $this->_serviceDIC->getUser();
-        $loginValidator = await $this->_validatorDIC->getLogin();
-        $sessionService = await $this->_serviceDIC->getSession();
+        $asioUtil = $this->_utilDIC->getAsio();
+
+        list($sessionService, $userService, $loginValidator) = await $asioUtil->batchThree(
+            $this->_serviceDIC->getSession(),
+            $this->_serviceDIC->getUser(),
+            $this->_validatorDIC->getLogin()
+        );
 
         return new LoginController(
             new LoginView(),
@@ -107,8 +129,12 @@ class DIC
 
     public async function getRegisterController(): Awaitable<Controllable>
     {
-        $userService   = await $this->_serviceDIC->getUser();
-        $userValidator = await $this->_validatorDIC->getUser();
+        $asioUtil = $this->_utilDIC->getAsio();
+
+        list($userService, $userValidator) = await $asioUtil->batch(
+            $this->_serviceDIC->getUser(),
+            $this->_validatorDIC->getUser()
+        );
 
         return new RegisterController(
             new RegisterView(),

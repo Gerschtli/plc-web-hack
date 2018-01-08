@@ -12,6 +12,7 @@ use PLC\Model\View\BaseModel;
 use PLC\Service\Article as ArticleService;
 use PLC\Service\Markdown;
 use PLC\Service\Session;
+use PLC\Util\Asio;
 use PLC\Util\Globals;
 use PLC\Validator\Article as ArticleValidator;
 use Viewable;
@@ -31,6 +32,7 @@ class Controller extends ViewController implements Controllable
         private Markdown $_markdownService,
         private Session $_sessionService,
         private ArticleValidator $_articleValidator,
+        private Asio $_asio,
         private Globals $_globals
     )
     {
@@ -56,8 +58,10 @@ class Controller extends ViewController implements Controllable
                 $article->setBody($post['body']);
                 $article->setAuthor($user);
 
-                $teaser = await $this->_markdownService->convertToHtml($post['teaser']);
-                $body   = await $this->_markdownService->convertToHtml($post['body']);
+                list($teaser, $body) = await $this->_asio->batch(
+                    $this->_markdownService->convertToHtml($post['teaser']),
+                    $this->_markdownService->convertToHtml($post['body'])
+                );
                 if ($teaser !== null) {
                     $article->setTeaserHtml($teaser);
                 }

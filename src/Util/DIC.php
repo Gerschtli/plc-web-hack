@@ -9,7 +9,17 @@ namespace PLC\Util;
  */
 class DIC
 {
+    private ?Asio $_asio;
     private ?Globals $_globals;
+
+    public function getAsio(): Asio
+    {
+        if ($this->_asio === null) {
+            $this->_asio = new Asio();
+        }
+
+        return $this->_asio;
+    }
 
     public function getGlobals(): Globals
     {

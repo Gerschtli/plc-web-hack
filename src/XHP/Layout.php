@@ -10,6 +10,7 @@ class :plc:layout extends :x:element
     children (:xhp)+;
     attribute string title @required;
     attribute bool admin-nav = false;
+    attribute bool wrapper = true;
 
     protected function render(): XHPRoot
     {
@@ -26,12 +27,21 @@ class :plc:layout extends :x:element
                             <h1><a class="no-decoration" href="/">Herzlich Willkommen bei unserem Blog!</a></h1>
                             {$this->_renderNav()}
                         </div>
-                        <div class="wrapper">
-                            {$this->getChildren()}
-                        </div>
+                        {$this->_renderContent()}
                     </body>
                 </html>
             </x:doctype>;
+    }
+
+    private function _renderContent(): :xhp
+    {
+        $wrapper = $this->:wrapper ? <div class="wrapper" /> : <x:frag />;
+
+        foreach ($this->getChildren() as $child) {
+            $wrapper->appendChild($child);
+        }
+
+        return $wrapper;
     }
 
     private function _renderNav(): :xhp
@@ -42,7 +52,7 @@ class :plc:layout extends :x:element
             $list->add(shape('url' => '/admin', 'label' => 'Admin'));
             $list->add(shape('url' => '/login?logout', 'label' => 'Logout'));
         } else {
-            $list->add(shape('url' => '/login', 'label' => 'Login'));
+            $list->add(shape('url' => '/login', 'label' => 'Einloggen'));
             $list->add(shape('url' => '/register', 'label' => 'Registrieren'));
         }
 

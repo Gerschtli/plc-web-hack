@@ -17,8 +17,7 @@ class IndexView extends BaseView<Model> implements Viewable
     protected function _render(Model $model): :xhp
     {
         return
-            <plc:layout title="Startseite">
-                <h1>Alle Artikel</h1>
+            <plc:layout title="Startseite" wrapper={false}>
                 {$this->_showArticles($model)}
             </plc:layout>;
     }

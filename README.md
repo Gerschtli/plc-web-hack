@@ -20,6 +20,8 @@ $ nixops/manage dev deploy
 $ # start/stop vm
 $ nixops/manage dev start
 $ nixops/manage dev stop
+$ # run nixops/init.sql in container
+$ nixops/manage dev ssh-for-each -- "mysql < /var/www/plc-hack/nixops/init.sql"
 ```
 
 Note: You need to install VirtualBox.
@@ -29,4 +31,5 @@ Note: You need to install VirtualBox.
 ```sh
 $ nixops/manage prod deploy --check
 ```
+
 Note: You need to configure the ssh connection (hostname: `app.plc-web`) manually!

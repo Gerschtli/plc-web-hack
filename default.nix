@@ -5,7 +5,7 @@
 let
   composerEnv = import ./composer-env.nix {
     inherit (pkgs) stdenv writeTextFile fetchurl unzip;
-    php = import ./hhvm.nix;
+    php = pkgs.hhvm;
   };
 in
 import ./php-packages.nix {

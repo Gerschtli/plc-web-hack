@@ -20,14 +20,6 @@ rec {
         allowPing = true;
       };
 
-      nixpkgs.overlays = [
-        (self: super:
-          {
-            hhvm = import ../hhvm.nix;
-          }
-        )
-      ];
-
       services = {
         mysql = {
           enable = true;

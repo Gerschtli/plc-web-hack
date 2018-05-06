@@ -1,6 +1,6 @@
-CREATE DATABASE `blog`;
+CREATE DATABASE IF NOT EXISTS `blog`;
 
-CREATE TABLE `blog`.`user` (
+CREATE TABLE IF NOT EXISTS `blog`.`user` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `fullname` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
@@ -8,7 +8,7 @@ CREATE TABLE `blog`.`user` (
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE TABLE `blog`.`article` (
+CREATE TABLE IF NOT EXISTS `blog`.`article` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT,
   `body` text NOT NULL,
   `created_at` datetime NOT NULL,
@@ -23,5 +23,5 @@ CREATE TABLE `blog`.`article` (
   CONSTRAINT `FKgwrtdbqvt9ucntp82nd3yiuec` FOREIGN KEY (`author_id`) REFERENCES `blog`.`user` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-CREATE USER 'plc'@'localhost' IDENTIFIED BY 'test';
+CREATE USER IF NOT EXISTS 'plc'@'localhost' IDENTIFIED BY 'test';
 GRANT ALL PRIVILEGES ON blog.* TO 'plc'@'localhost';

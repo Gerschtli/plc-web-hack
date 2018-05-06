@@ -7,7 +7,7 @@ use XHPRoot;
  */
 class :plc:layout extends :x:element
 {
-    children (:xhp)+;
+    children (:xhp)*;
     attribute string title @required;
     attribute bool admin-nav = false;
     attribute bool wrapper = true;

@@ -2,23 +2,13 @@
 
 let
   packages = {
-    "facebook/definition-finder" = {
-      targetDir = "";
-      src = composerEnv.buildZipPackage {
-        name = "facebook-definition-finder-38f37b3eafec26fd5030c0f9f3584fc6493c9a9b";
-        src = fetchurl {
-          url = https://api.github.com/repos/hhvm/definition-finder/zipball/38f37b3eafec26fd5030c0f9f3584fc6493c9a9b;
-          sha256 = "1ff0jqb9k3z6hqrjmhyxabk4ih93q74gk9d2k2r1kpvhj28ndyj7";
-        };
-      };
-    };
     "facebook/xhp-lib" = {
       targetDir = "";
       src = composerEnv.buildZipPackage {
-        name = "facebook-xhp-lib-aff764effe546739b19fd59082e92e37ecbc43c8";
+        name = "facebook-xhp-lib-5ef653637aa15aed232ff913b3c66b346df0932a";
         src = fetchurl {
-          url = https://api.github.com/repos/facebook/xhp-lib/zipball/aff764effe546739b19fd59082e92e37ecbc43c8;
-          sha256 = "05ghm97qzsrww1ycqzpma8pnwyxz8h9dx45jqd5wvvvzhargjq3v";
+          url = https://api.github.com/repos/hhvm/xhp-lib/zipball/5ef653637aa15aed232ff913b3c66b346df0932a;
+          sha256 = "18vfr521azadlzn0nznc0kgfsp6qlvgli2fp2lzsjch3fan65jwy";
         };
       };
     };
@@ -35,30 +25,30 @@ let
     "hhvm/hhvm-autoload" = {
       targetDir = "";
       src = composerEnv.buildZipPackage {
-        name = "hhvm-hhvm-autoload-e91e24c69118505999e6f7e9e051b03c85f634b4";
+        name = "hhvm-hhvm-autoload-2beebbb5982e77237ec853ee1231860c3c295bf3";
         src = fetchurl {
-          url = https://api.github.com/repos/hhvm/hhvm-autoload/zipball/e91e24c69118505999e6f7e9e051b03c85f634b4;
-          sha256 = "17b7p8z4b953c6gsrv7rzscn5lzq3ysm9pbnldpq655fyp6fib48";
+          url = https://api.github.com/repos/hhvm/hhvm-autoload/zipball/2beebbb5982e77237ec853ee1231860c3c295bf3;
+          sha256 = "0pnbnfblyjpdfvaq90hnnrjcriz20p56drwqv833yvxynml23cpk";
         };
       };
     };
     "hhvm/hsl" = {
       targetDir = "";
       src = composerEnv.buildZipPackage {
-        name = "hhvm-hsl-8cf59799ea76199bd676570cece84866ac73ddc0";
+        name = "hhvm-hsl-2d40281ec595b25a09bbe51d9216edbf1ad55a42";
         src = fetchurl {
-          url = https://api.github.com/repos/hhvm/hsl/zipball/8cf59799ea76199bd676570cece84866ac73ddc0;
-          sha256 = "0lzkjjwv3yl03nb7m55wj7kmd2rnx229jk39r18080x8cadf9l5g";
+          url = https://api.github.com/repos/hhvm/hsl/zipball/2d40281ec595b25a09bbe51d9216edbf1ad55a42;
+          sha256 = "0ihqhv054s4iyr9dnid7jrafi44v7cn9s2ldgczkah6j16kz37nl";
         };
       };
     };
     "hhvm/type-assert" = {
       targetDir = "";
       src = composerEnv.buildZipPackage {
-        name = "hhvm-type-assert-92848dbb1598f1df3f86cc5fab5226d6f68e8282";
+        name = "hhvm-type-assert-8f70814c8268f50e2fa728893d3ad9cad73df398";
         src = fetchurl {
-          url = https://api.github.com/repos/hhvm/type-assert/zipball/92848dbb1598f1df3f86cc5fab5226d6f68e8282;
-          sha256 = "0qyrjazdy9fp2sfzlhsw1m1f7hrdxk7fnlvqp9g1m3jxikhrifnv";
+          url = https://api.github.com/repos/hhvm/type-assert/zipball/8f70814c8268f50e2fa728893d3ad9cad73df398;
+          sha256 = "12h4bv5q3zi5kags28hxbq13i2hd0nfpws5kkakrz9jmdi0034d1";
         };
       };
     };

@@ -1,4 +1,4 @@
-# Hack project for Programming Language Competetion - Group: Web
+# Hack project for Programming Language Competition - Group: Web
 
 Purpose of this project was to show the core features of the [Hack](https://docs.hhvm.com/hack/) language.
 I didn't pay security and UI much attention, it was only for a course at my university, but I had the desire to show
